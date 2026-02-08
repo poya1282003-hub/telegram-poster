@@ -1,0 +1,43 @@
+name: Send Telegram Message
+on:
+  schedule:
+    # هر ۳۰ دقیقه یکبار اجرا شود (زمان UTC)
+    - cron: '*/30 * * * *'
+  workflow_dispatch:  # امکان اجرای دستی
+
+jobs:
+  send-message:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Create last_line.txt if not exists
+        run: |
+          if [ ! -f "last_line.txt" ]; then
+            echo "0" > last_line.txt
+          fi
+
+      - name: Run Telegram Bot
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+        run: python bot.py
+
+      - name: Commit and push if changed
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add last_line.txt
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto: Update last_line" && git push)
