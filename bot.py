@@ -4,98 +4,84 @@
 import os
 import requests
 
-# ==================== تنظیمات ====================
-# این مقادیر را در Secrets گیت‌هاب قرار می‌دهیم
-TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
-TELEGRAM_CHANNEL_ID = os.environ.get("TELEGRAM_CHANNEL_ID")
-# =================================================
+print("🤖 شروع ربات تلگرام")
 
-def read_last_line():
-    """خواندن شماره آخرین خط ارسال شده"""
-    try:
-        with open('last_line.txt', 'r') as f:
-            return int(f.read().strip())
-    except (FileNotFoundError, ValueError):
-        return 0
+# خواندن از Secrets گیت‌هاب
+TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
+CHANNEL = os.environ.get("TELEGRAM_CHANNEL_ID", "")
 
-def save_last_line(line_num):
-    """ذخیره شماره خط جدید"""
-    with open('last_line.txt', 'w') as f:
-        f.write(str(line_num))
+print(f"✅ توکن: {TOKEN[:10]}...")
+print(f"✅ کانال: {CHANNEL}")
 
-def read_texts():
-    """خواندن همه خطوط از فایل"""
+# بررسی تنظیمات
+if not TOKEN or "توکن_" in TOKEN:
+    print("❌ توکن ربات تنظیم نشده!")
+    print("   در GitHub Secrets → TELEGRAM_BOT_TOKEN را تنظیم کن")
+    exit(1)
+
+if not CHANNEL or "آیدی_" in CHANNEL:
+    print("❌ آیدی کانال تنظیم نشده!")
+    print("   در GitHub Secrets → TELEGRAM_CHANNEL_ID را تنظیم کن")
+    exit(1)
+
+# خواندن شماره آخرین خط
+try:
+    with open('last_line.txt', 'r') as f:
+        last_line = int(f.read().strip())
+except:
+    last_line = 0
+
+print(f"📖 آخرین خط ارسال شده: {last_line}")
+
+# خواندن تمام خطوط متن
+try:
     with open('texts.txt', 'r', encoding='utf-8') as f:
-        return [line.strip() for line in f.readlines()]
+        all_lines = [line.strip() for line in f]
+except FileNotFoundError:
+    print("❌ فایل texts.txt پیدا نشد!")
+    exit(1)
 
-def send_to_telegram(message):
-    """ارسال پیام به کانال تلگرام"""
-    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
-    
-    payload = {
-        'chat_id': TELEGRAM_CHANNEL_ID,
-        'text': message,
-        'parse_mode': 'HTML',
-        'disable_web_page_preview': True
-    }
-    
-    response = requests.post(url, json=payload)
-    return response.json()
+print(f"📄 تعداد کل خطوط: {len(all_lines)}")
 
-def main():
-    print("🤖 شروع ربات تلگرام...")
-    
-    # بررسی تنظیمات
-    if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHANNEL_ID:
-        print("❌ توکن یا آیدی کانال تنظیم نشده!")
-        print("لطفاً در GitHub Secrets تنظیم کنید:")
-        print("1. TELEGRAM_BOT_TOKEN")
-        print("2. TELEGRAM_CHANNEL_ID")
-        return
-    
-    # خواندن وضعیت
-    last_line = read_last_line()
-    print(f"📖 آخرین خط ارسال شده: {last_line}")
-    
-    # خواندن متن‌ها
-    texts = read_texts()
-    print(f"📄 تعداد کل خطوط: {len(texts)}")
-    
-    # بررسی پایان متن
-    if last_line >= len(texts):
-        print("✅ همه خطوط ارسال شده‌اند!")
-        return
-    
-    # انتخاب ۵ خط بعدی
-    lines_to_send = texts[last_line:last_line + 5]
-    print(f"📤 ارسال {len(lines_to_send)} خط...")
-    
-    # ساخت پیام
-    separator = "\n" + "─" * 25 + "\n"
-    message = separator.join(lines_to_send)
-    
-    # اضافه کردن هدر
-    from datetime import datetime
-    now = datetime.now().strftime("%Y/%m/%d %H:%M")
-    final_message = f"🕒 {now}\n\n{message}"
-    
-    # ارسال
-    result = send_to_telegram(final_message)
+# اگر همه خطوط ارسال شده‌اند
+if last_line >= len(all_lines):
+    print("🎉 تمام خطوط ارسال شده‌اند!")
+    exit(0)
+
+# 🎯 گرفتن ۳ خط بعدی (تغییر از ۵ به ۳)
+lines_to_send = []
+for i in range(3):  # هر بار ۳ خط
+    if last_line + i < len(all_lines):
+        lines_to_send.append(all_lines[last_line + i])
+
+print(f"📤 ارسال {len(lines_to_send)} خط به تلگرام...")
+
+# ساخت پیام نهایی
+separator = "\n" + "─" * 25 + "\n"
+message = separator.join(lines_to_send)
+
+# ارسال به تلگرام
+url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
+payload = {
+    'chat_id': CHANNEL,
+    'text': message,
+    'parse_mode': 'HTML',
+    'disable_web_page_preview': True
+}
+
+try:
+    response = requests.post(url, json=payload, timeout=10)
+    result = response.json()
     
     if result.get('ok'):
-        # بروزرسانی وضعیت
+        # بروزرسانی شماره خط
         new_last_line = last_line + len(lines_to_send)
-        save_last_line(new_last_line)
+        with open('last_line.txt', 'w') as f:
+            f.write(str(new_last_line))
         print(f"✅ ارسال موفق! خط جدید: {new_last_line}")
-        
-        # commit تغییرات
-        os.system('git config --global user.email "actions@github.com"')
-        os.system('git config --global user.name "GitHub Actions"')
-        os.system('git add last_line.txt')
-        os.system('git commit -m "Auto: Update last_line to ' + str(new_last_line) + '"')
-        os.system('git push')
+        print(f"📊 {len(lines_to_send)} خط ارسال شد")
     else:
-        print(f"❌ خطا: {result.get('description')}")
-
-if __name__ == "__main__":
-    main()
+        print(f"❌ خطای تلگرام: {result.get('description')}")
+        
+except Exception as e:
+    print(f"❌ خطای اتصال: {e}")
