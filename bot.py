@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import os
 import requests
-from datetime import datetime
+from datetime import datetime, timedelta
 
 print("🤖 شروع ربات")
 
@@ -54,7 +54,10 @@ print(f"📤 ارسال {len(lines_to_send)} خط...")
 
 # ==================== ساخت پیام ====================
 post_number = (last_line // 3) + 1
-today = datetime.now()
+
+# زمان ایران (UTC + 3:30)
+utc_now = datetime.utcnow()
+iran_time = utc_now + timedelta(hours=3, minutes=30)
 
 # ایموجی‌های متحرک
 animated_emojis = ["🎯", "🚀", "⚡", "🔑", "🌊", "✨", "🎉", "🔥", "💫", "🌟"]
@@ -62,14 +65,15 @@ static_emojis = ["🕐", "🕑", "🕒", "🕓", "🕔", "🕕", "🕖", "🕗",
 
 # انتخاب ایموجی
 main_emoji = animated_emojis[post_number % len(animated_emojis)]
-time_emoji = static_emojis[post_number % len(static_emojis)]
+hour_index = iran_time.hour % 12
+time_emoji = static_emojis[hour_index]
 
-# تاریخ و زمان
-date_str = today.strftime("%Y/%m/%d")
-time_str = today.strftime("%H:%M")
+# تاریخ و زمان ایران
+date_str = iran_time.strftime("%Y/%m/%d")
+time_str = iran_time.strftime("%H:%M")
 
-# 🔴 همه اطلاعات در یک سطر
-header_line = f"{main_emoji}<b> #{post_number}</b>  {time_emoji}<b>{time_str}</b>  📅<b>{date_str}</b>"
+# 🔴 تغییر: ترتیب post #4
+header_line = f"{main_emoji}<b> post #{post_number}</b>  {time_emoji}<b>{time_str}</b>  📅<b>{date_str}</b>"
 
 # ساخت پیام
 message = f"{header_line}\n\n"
@@ -103,6 +107,9 @@ try:
         
         print(f"✅ پست #{post_number} ارسال شد")
         print(f"📍 موقعیت جدید: {new_last}")
+        
+        # نمایش زمان‌ها
+        print(f"🕒 زمان ایران: {iran_time.strftime('%H:%M')}")
         
         # نمایش خلاصه
         print("\n📬 محتوای ارسال شده:")
