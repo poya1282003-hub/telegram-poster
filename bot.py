@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 import jdatetime
 import urllib.parse
 
-print("🤖 شروع ربات - بازنویسی کامل فیلد ps")
+print("🤖 شروع ربات - پشتیبانی از همه پروتکل‌ها")
 
 # خواندن تنظیمات
 TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
@@ -66,52 +66,52 @@ flags = [
 ]
 
 # ==================== اصلاح لینک‌ها ====================
-def modify_vmess_link(link, link_number):
+def modify_link(link, link_number):
     """
-    بازنویسی کامل فیلد ps بدون توجه به محتوای قبلی
+    اصلاح لینک برای همه پروتکل‌ها
     """
+    # انتخاب پرچم
+    flag_index = link_number % len(flags)
+    flag = flags[flag_index]
+    
+    # نام جدید
+    new_name = f"{flag}  @v2reyonline ✓هر ۳۰ دقیقه آپدیت"
+    
+    # URL decode نام فعلی
     try:
-        if not link.startswith("vmess://"):
-            return link
-        
-        # انتخاب پرچم
-        flag_index = link_number % len(flags)
-        flag = flags[flag_index]
-        
-        # جدا کردن base64
-        base64_str = link.replace("vmess://", "")
-        
-        # decode
-        decoded = base64.b64decode(base64_str).decode('utf-8')
-        config = json.loads(decoded)
-        
-        # 🔴 بازنویسی کامل فیلد ps - مهمترین بخش
-        config["ps"] = f"{flag}  @v2reyonline ✓هر ۳۰ دقیقه آپدیت"
-        
-        # 🔴 همچنین می‌توانیم host و sni را هم تغییر دهیم اگر می‌خواهی
-        # config["host"] = "v2reyonline.com"
-        # config["sni"] = "v2reyonline.com"
-        
-        # encode دوباره
-        new_json = json.dumps(config, separators=(',', ':'))  # فشرده‌سازی
-        new_base64 = base64.b64encode(new_json.encode()).decode()
-        new_link = f"vmess://{new_base64}"
-        
-        # نمایش برای دیباگ
-        old_ps = config.get("ps", "بدون نام") if 'old_config' in locals() else "نام قدیمی"
-        print(f"   🔄 تغییر نام: '{old_ps[:20]}...' → '{config['ps']}'")
-        
-        return new_link
-        
+        if '#' in link:
+            parts = link.split('#', 1)
+            base_link = parts[0]
+            old_name_encoded = parts[1] if len(parts) > 1 else ""
+            
+            # decode نام قدیمی
+            old_name = urllib.parse.unquote(old_name_encoded)
+            print(f"   📝 نام قدیمی: {old_name[:30]}...")
+            
+            # encode نام جدید
+            new_name_encoded = urllib.parse.quote(new_name)
+            
+            # ساخت لینک جدید
+            modified_link = f"{base_link}#{new_name_encoded}"
+            print(f"   ✅ نام جدید: {new_name}")
+            return modified_link
+            
+        else:
+            # اگر # ندارد، اضافه کن
+            print(f"   ⚠️ لینک بدون نام: {link[:50]}...")
+            new_name_encoded = urllib.parse.quote(new_name)
+            modified_link = f"{link}#{new_name_encoded}"
+            print(f"   ➕ نام اضافه شد: {new_name}")
+            return modified_link
+            
     except Exception as e:
-        print(f"   ⚠️ خطا در اصلاح لینک: {e}")
-        print(f"   لینک مشکل‌دار: {link[:50]}...")
+        print(f"   ❌ خطا در اصلاح لینک: {e}")
         return link
 
 # اصلاح همه لینک‌ها
 lines_to_send = []
 for i, line in enumerate(raw_lines):
-    modified_line = modify_vmess_link(line, last_line + i)
+    modified_line = modify_link(line, last_line + i)
     lines_to_send.append(modified_line)
 
 # ==================== ساخت پیام ====================
@@ -176,18 +176,18 @@ try:
         print(f"✅ پست #{post_number} ارسال شد")
         print(f"📍 موقعیت جدید: {new_last}")
         
-        print("\n📱 نام‌های جدید در V2Ray:")
+        print("\n📱 نام‌های جدید در اپلیکیشن:")
         for i, line in enumerate(lines_to_send, 1):
-            try:
-                if line.startswith("vmess://"):
-                    base64_part = line.replace("vmess://", "")
-                    # decode برای نمایش
-                    decoded = base64.b64decode(base64_part).decode('utf-8')
-                    config = json.loads(decoded)
-                    ps = config.get("ps", "")
-                    print(f"  {i}. {ps}")
-            except:
-                print(f"  {i}. نمایش ناموفق")
+            # استخراج نام از لینک
+            if '#' in line:
+                name_part = line.split('#', 1)[1]
+                try:
+                    name = urllib.parse.unquote(name_part)
+                    print(f"  {i}. {name}")
+                except:
+                    print(f"  {i}. {name_part[:30]}...")
+            else:
+                print(f"  {i}. بدون نام")
         
     else:
         print(f"❌ خطا: {result.get('description')}")
