@@ -8,7 +8,7 @@ print("🤖 شروع ربات")
 # خواندن تنظیمات
 TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 CHANNEL = os.environ.get("TELEGRAM_CHANNEL_ID", "")
-CHANNEL_USERNAME = os.environ.get("CHANNEL_USERNAME", "")  # تغییر: پیش‌فرض خالی
+CHANNEL_USERNAME = os.environ.get("CHANNEL_USERNAME", "")
 
 if not TOKEN or not CHANNEL:
     print("❌ توکن یا آیدی کانال تنظیم نشده!")
@@ -58,34 +58,35 @@ post_number = (last_line // 3) + 1
 
 # تاریخ امروز
 today = datetime.now()
-date_str = today.strftime("%Y/%m/%d - %H:%M")
+date_str = today.strftime("%H:%M - %Y/%m/%d")
 
-# شروع پیام - با HTML
-message = f"<b>🔑 پست #{post_number}</b> | 🗓️ {date_str}\n"
-message += "▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n\n"
+# شروع پیام
+message = f"<b>#{post_number} پست</b> | {date_str}\n\n"
 
 # اضافه کردن ۳ خط
 for i, line in enumerate(lines_to_send, 1):
-    message += f"<b>{i}.</b> <code>{line}</code>\n\n"
+    message += f"<b>{i}.</b> {line}\n\n"
 
-message += "▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n\n"
-
-# بخش کپی
+# بخش دکمه کپی (فیروزه‌ای با سایز بزرگ)
 message += "<b>📋 کپی آسان:</b>\n"
+message += "<code>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</code>\n"  # خط فیروزه‌ای
 for i, line in enumerate(lines_to_send, 1):
-    message += f"<pre>{line}</pre>\n"
+    message += f"<pre>{line}</pre>\n\n"
+message += "<code>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</code>\n\n"  # خط فیروزه‌ای
 
-message += "\n▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n\n"
+# متن دکمه
+copy_button = "⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯"
+message += f"<code>{copy_button}</code>\n"
+message += "<b>   ⬇️ اینجا بزنید تا کپی بشه ⬇️   </b>\n"
+message += f"<code>{copy_button}</code>\n\n"
 
-# بخش کانال - اگر CHANNEL_USERNAME تنظیم شده
-if CHANNEL_USERNAME:
-    message += f"<b>📢 کانال:</b> {CHANNEL_USERNAME}\n"
-else:
-    message += "<b>📢 کانال:</b> (نام کانال تنظیم نشده)\n"
-
+# بخش پایینی
 message += "🔄 هر ۳۰ دقیقه پست جدید\n"
 message += "🔔 نوتیفیکیشن روشن باشه\n\n"
-message += "#پروکسی #MTProto #کانال"
+
+# آدرس کانال (پایین سمت چپ)
+message += "<code>──────────────</code>\n"
+message += "<i>@v2rayonlin</i>"
 
 # ==================== ارسال ====================
 url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
