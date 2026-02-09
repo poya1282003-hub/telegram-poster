@@ -8,7 +8,6 @@ print("🤖 شروع ربات")
 # خواندن تنظیمات
 TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 CHANNEL = os.environ.get("TELEGRAM_CHANNEL_ID", "")
-CHANNEL_USERNAME = os.environ.get("CHANNEL_USERNAME", "")
 
 if not TOKEN or not CHANNEL:
     print("❌ توکن یا آیدی کانال تنظیم نشده!")
@@ -56,41 +55,29 @@ print(f"📤 ارسال {len(lines_to_send)} خط...")
 # ==================== ساخت پیام ====================
 post_number = (last_line // 3) + 1
 today = datetime.now()
-date_str = today.strftime("%Y/%m/%d - %H:%M")
+date_str = today.strftime("%H:%M - %Y/%m/%d")
 
 # شروع پیام ساده
-message = f"<b>🔄 پست #{post_number}</b> | 📅 {date_str}\n\n"
+message = f"{date_str} | #{post_number}\n\n"
 
-# فقط یک باکس بزرگ (بدون نمایش لینک‌ها قبل از باکس)
-box_width = 45  # تقریباً ۱۰ سانت
+# فقط یک باکس بزرگ (بدون هیچ متن اضافه)
+box_width = 42
 
-# عنوان بالای باکس
-message += "<b>📋 برای کپی کردن روی دکمه زیر بزنید:</b>\n\n"
-
-# دکمه بزرگ بالایی
-message += f"<code>╔{'═' * box_width}╗</code>\n"
-message += f"<code>║{' ' * box_width}║</code>\n"
-
-# متن وسط دکمه (بزرگ)
-button_text = "🖱️ اینجا کلیک کنید تا کپی شود 🖱️"
-text_padding = (box_width - len(button_text) + 8) // 2  # +8 برای ایموجی
-left_pad = " " * text_padding
-right_pad = " " * (box_width - len(left_pad) - len(button_text) + 8)
-
-message += f"<code>║{left_pad}{button_text}{right_pad}║</code>\n"
-message += f"<code>║{' ' * box_width}║</code>\n"
-message += f"<code>╚{'═' * box_width}╝</code>\n\n"
+# باکس خالی بزرگ
+message += f"<code>┏{'━' * box_width}┓</code>\n"
+for _ in range(3):  # ۳ خط خالی داخل باکس
+    message += f"<code>┃{' ' * box_width}┃</code>\n"
+message += f"<code>┗{'━' * box_width}┛</code>\n\n"
 
 # متن اصلی برای کپی (همه ۳ لینک)
 all_lines_text = "\n".join(lines_to_send)
 message += f"<pre>{all_lines_text}</pre>\n\n"
 
-# اطلاعات پایین
-message += "⏰ هر ۳۰ دقیقه پست جدید\n"
-message += "🔔 نوتیفیکیشن روشن باشه\n\n"
+# فقط یک خط پایینی
+message += "نوتیفیکشن روشن نگه دارین\n\n"
 
-# آدرس کانال
-message += "<i>@v2rayonlin</i>"
+# آدرس کانال (پایین سمت چپ)
+message += "<i>@v2reyonline</i>"
 
 # ==================== ارسال ====================
 url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
