@@ -5,8 +5,9 @@ import base64
 import json
 from datetime import datetime, timedelta
 import jdatetime
+import urllib.parse
 
-print("🤖 شروع ربات")
+print("🤖 شروع ربات - بازنویسی کامل فیلد ps")
 
 # خواندن تنظیمات
 TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
@@ -65,35 +66,46 @@ flags = [
 ]
 
 # ==================== اصلاح لینک‌ها ====================
-def modify_vmess_link(link, post_number):
+def modify_vmess_link(link, link_number):
     """
-    تغییر فیلد ps در لینک vmess
-    نمایش: {پرچم} @v2reyonline ✓هر ۳۰ دقیقه آپدیت
+    بازنویسی کامل فیلد ps بدون توجه به محتوای قبلی
     """
     try:
         if not link.startswith("vmess://"):
             return link
         
-        # انتخاب پرچم بر اساس شماره پست
-        flag_index = post_number % len(flags)
+        # انتخاب پرچم
+        flag_index = link_number % len(flags)
         flag = flags[flag_index]
         
+        # جدا کردن base64
         base64_str = link.replace("vmess://", "")
+        
+        # decode
         decoded = base64.b64decode(base64_str).decode('utf-8')
         config = json.loads(decoded)
         
-        # 🔴 تغییر ps به فرمت مورد نظر
+        # 🔴 بازنویسی کامل فیلد ps - مهمترین بخش
         config["ps"] = f"{flag}  @v2reyonline ✓هر ۳۰ دقیقه آپدیت"
         
-        new_json = json.dumps(config)
+        # 🔴 همچنین می‌توانیم host و sni را هم تغییر دهیم اگر می‌خواهی
+        # config["host"] = "v2reyonline.com"
+        # config["sni"] = "v2reyonline.com"
+        
+        # encode دوباره
+        new_json = json.dumps(config, separators=(',', ':'))  # فشرده‌سازی
         new_base64 = base64.b64encode(new_json.encode()).decode()
         new_link = f"vmess://{new_base64}"
         
-        print(f"   ✅ {config['ps']}")
+        # نمایش برای دیباگ
+        old_ps = config.get("ps", "بدون نام") if 'old_config' in locals() else "نام قدیمی"
+        print(f"   🔄 تغییر نام: '{old_ps[:20]}...' → '{config['ps']}'")
+        
         return new_link
         
     except Exception as e:
         print(f"   ⚠️ خطا در اصلاح لینک: {e}")
+        print(f"   لینک مشکل‌دار: {link[:50]}...")
         return link
 
 # اصلاح همه لینک‌ها
@@ -131,7 +143,7 @@ time_emoji = static_emojis[hour_index]
 date_str = shamsi_date.strftime("%Y/%m/%d")
 time_str = shamsi_date.strftime("%H:%M")
 
-# 🔴 ساخت پیام - بدون خط اول
+# ساخت پیام
 message = f"{main_emoji}<b> post #{post_number}</b>  {time_emoji}<b>{time_str}</b>  📅<b>{date_str}</b>\n\n"
 
 # متن اصلی برای کپی
@@ -164,17 +176,18 @@ try:
         print(f"✅ پست #{post_number} ارسال شد")
         print(f"📍 موقعیت جدید: {new_last}")
         
-        print("\n📱 نمایش در V2Ray کاربران:")
+        print("\n📱 نام‌های جدید در V2Ray:")
         for i, line in enumerate(lines_to_send, 1):
             try:
                 if line.startswith("vmess://"):
                     base64_part = line.replace("vmess://", "")
+                    # decode برای نمایش
                     decoded = base64.b64decode(base64_part).decode('utf-8')
                     config = json.loads(decoded)
                     ps = config.get("ps", "")
                     print(f"  {i}. {ps}")
             except:
-                print(f"  {i}. خطا در نمایش")
+                print(f"  {i}. نمایش ناموفق")
         
     else:
         print(f"❌ خطا: {result.get('description')}")
