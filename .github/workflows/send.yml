@@ -88,3 +88,7 @@ jobs:
         echo "🔍 تأیید آخرین وضعیت..."
         echo "آخرین commit:"
         git log --oneline -1
+- name: Install dependencies
+  run: |
+    pip install requests
+    pip install jdatetime  # 👈 این خط رو اضافه کن
