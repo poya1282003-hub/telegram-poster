@@ -57,27 +57,18 @@ post_number = (last_line // 3) + 1
 today = datetime.now()
 date_str = today.strftime("%H:%M - %Y/%m/%d")
 
-# شروع پیام ساده
-message = f"{date_str} | #{post_number}\n\n"
-
-# فقط یک باکس بزرگ (بدون هیچ متن اضافه)
-box_width = 42
-
-# باکس خالی بزرگ
-message += f"<code>┏{'━' * box_width}┓</code>\n"
-for _ in range(3):  # ۳ خط خالی داخل باکس
-    message += f"<code>┃{' ' * box_width}┃</code>\n"
-message += f"<code>┗{'━' * box_width}┛</code>\n\n"
+# شروع پیام - با حروف بزرگ
+message = f"<b>{date_str} | #{post_number}</b>\n\n"
 
 # متن اصلی برای کپی (همه ۳ لینک)
 all_lines_text = "\n".join(lines_to_send)
 message += f"<pre>{all_lines_text}</pre>\n\n"
 
 # فقط یک خط پایینی
-message += "نوتیفیکشن روشن نگه دارین\n\n"
+message += "⏰ هر ۳۰ دقیقه پست جدید\n\n"
 
-# آدرس کانال (پایین سمت چپ)
-message += "<i>@v2reyonline</i>"
+# آدرس کانال - با حروف بزرگ
+message += "<b>@V2REYONLINE</b>"
 
 # ==================== ارسال ====================
 url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
