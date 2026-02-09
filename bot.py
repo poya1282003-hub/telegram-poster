@@ -8,7 +8,7 @@ print("🤖 شروع ربات")
 # خواندن تنظیمات
 TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 CHANNEL = os.environ.get("TELEGRAM_CHANNEL_ID", "")
-CHANNEL_USERNAME = os.environ.get("CHANNEL_USERNAME", "@YourChannel")
+CHANNEL_USERNAME = os.environ.get("CHANNEL_USERNAME", "")  # تغییر: پیش‌فرض خالی
 
 if not TOKEN or not CHANNEL:
     print("❌ توکن یا آیدی کانال تنظیم نشده!")
@@ -60,25 +60,29 @@ post_number = (last_line // 3) + 1
 today = datetime.now()
 date_str = today.strftime("%Y/%m/%d - %H:%M")
 
-# شروع پیام
-message = f"🔑 **پست #{post_number}** | 🗓️ {date_str}\n"
+# شروع پیام - با HTML
+message = f"<b>🔑 پست #{post_number}</b> | 🗓️ {date_str}\n"
 message += "▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n\n"
 
 # اضافه کردن ۳ خط
 for i, line in enumerate(lines_to_send, 1):
-    message += f"**{i}.** `{line}`\n\n"
+    message += f"<b>{i}.</b> <code>{line}</code>\n\n"
 
 message += "▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n\n"
 
 # بخش کپی
-message += "📋 **کپی آسان:**\n"
+message += "<b>📋 کپی آسان:</b>\n"
 for i, line in enumerate(lines_to_send, 1):
-    message += f"```\n{line}\n```\n"
+    message += f"<pre>{line}</pre>\n"
 
 message += "\n▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n\n"
 
-# بخش کانال
-message += f"📢 **کانال:** {CHANNEL_USERNAME}\n"
+# بخش کانال - اگر CHANNEL_USERNAME تنظیم شده
+if CHANNEL_USERNAME:
+    message += f"<b>📢 کانال:</b> {CHANNEL_USERNAME}\n"
+else:
+    message += "<b>📢 کانال:</b> (نام کانال تنظیم نشده)\n"
+
 message += "🔄 هر ۳۰ دقیقه پست جدید\n"
 message += "🔔 نوتیفیکیشن روشن باشه\n\n"
 message += "#پروکسی #MTProto #کانال"
@@ -88,7 +92,7 @@ url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
 payload = {
     'chat_id': CHANNEL,
     'text': message,
-    'parse_mode': 'MarkdownV2',
+    'parse_mode': 'HTML',
     'disable_web_page_preview': True,
 }
 
@@ -104,6 +108,11 @@ try:
         
         print(f"✅ پست #{post_number} ارسال شد")
         print(f"📍 موقعیت جدید: {new_last}")
+        
+        # نمایش خلاصه
+        print("\n📬 محتوای ارسال شده:")
+        for i, line in enumerate(lines_to_send, 1):
+            print(f"  {i}. {line[:40]}...")
         
     else:
         print(f"❌ خطا: {result.get('description')}")
