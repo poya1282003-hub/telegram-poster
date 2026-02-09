@@ -4,63 +4,77 @@
 import os
 import requests
 
-print("🤖 شروع ربات تلگرام")
+print("=" * 50)
+print("🤖 ربات تلگرام - شروع کار")
+print("=" * 50)
 
 # خواندن از Secrets گیت‌هاب
 TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 CHANNEL = os.environ.get("TELEGRAM_CHANNEL_ID", "")
 
-print(f"✅ توکن: {TOKEN[:10]}...")
-print(f"✅ کانال: {CHANNEL}")
-
 # بررسی تنظیمات
 if not TOKEN or "توکن_" in TOKEN:
     print("❌ توکن ربات تنظیم نشده!")
-    print("   در GitHub Secrets → TELEGRAM_BOT_TOKEN را تنظیم کن")
     exit(1)
 
 if not CHANNEL or "آیدی_" in CHANNEL:
     print("❌ آیدی کانال تنظیم نشده!")
-    print("   در GitHub Secrets → TELEGRAM_CHANNEL_ID را تنظیم کن")
     exit(1)
 
-# خواندن شماره آخرین خط
+# ================== مرحله ۱: خواندن last_line.txt ==================
+print("\n📁 مرحله ۱: خواندن وضعیت فعلی")
 try:
     with open('last_line.txt', 'r') as f:
         last_line = int(f.read().strip())
-except:
+    print(f"✅ آخرین خط ارسال شده از فایل: {last_line}")
+except FileNotFoundError:
+    print("⚠️ فایل last_line.txt پیدا نشد. شروع از خط 0")
     last_line = 0
+    with open('last_line.txt', 'w') as f:
+        f.write('0')
+except ValueError:
+    print("⚠️ محتوای last_line.txt نامعتبر است. شروع از خط 0")
+    last_line = 0
+    with open('last_line.txt', 'w') as f:
+        f.write('0')
 
-print(f"📖 آخرین خط ارسال شده: {last_line}")
-
-# خواندن تمام خطوط متن
+# ================== مرحله ۲: خواندن texts.txt ==================
+print("\n📄 مرحله ۲: خواندن محتوای texts.txt")
 try:
     with open('texts.txt', 'r', encoding='utf-8') as f:
-        all_lines = [line.strip() for line in f]
+        all_lines = [line.rstrip('\n') for line in f]
+    print(f"✅ تعداد کل خطوط: {len(all_lines)}")
+    
 except FileNotFoundError:
     print("❌ فایل texts.txt پیدا نشد!")
     exit(1)
 
-print(f"📄 تعداد کل خطوط: {len(all_lines)}")
-
-# اگر همه خطوط ارسال شده‌اند
+# ================== مرحله ۳: بررسی پایان کار ==================
 if last_line >= len(all_lines):
-    print("🎉 تمام خطوط ارسال شده‌اند!")
+    print("\n🎉 تمام خطوط ارسال شده‌اند!")
+    print(f"last_line: {last_line}, total_lines: {len(all_lines)}")
     exit(0)
 
-# 🎯 گرفتن ۳ خط بعدی (تغییر از ۵ به ۳)
+# ================== مرحله ۴: انتخاب ۳ خط بعدی ==================
+print(f"\n🎯 مرحله ۴: انتخاب ۳ خط بعدی (از خط {last_line + 1})")
 lines_to_send = []
-for i in range(3):  # هر بار ۳ خط
-    if last_line + i < len(all_lines):
-        lines_to_send.append(all_lines[last_line + i])
+for i in range(3):
+    line_num = last_line + i
+    if line_num < len(all_lines):
+        lines_to_send.append(all_lines[line_num])
+        print(f"  ✓ خط {line_num + 1}: {all_lines[line_num][:30]}...")
 
-print(f"📤 ارسال {len(lines_to_send)} خط به تلگرام...")
+if not lines_to_send:
+    print("❌ هیچ خطی برای ارسال وجود ندارد!")
+    exit(0)
 
-# ساخت پیام نهایی
-separator = "\n" + "─" * 25 + "\n"
-message = separator.join(lines_to_send)
+# ================== مرحله ۵: ساخت پیام نهایی (بدون جداکننده) ==================
+print("\n📝 مرحله ۵: ساخت پیام نهایی")
+# فقط خط‌ها را با یک اینتر ساده به هم وصل کن
+message = "\n".join(lines_to_send)
 
-# ارسال به تلگرام
+# ================== مرحله ۶: ارسال به تلگرام ==================
+print("\n📤 مرحله ۶: ارسال به تلگرام")
 url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
 payload = {
     'chat_id': CHANNEL,
@@ -74,14 +88,23 @@ try:
     result = response.json()
     
     if result.get('ok'):
-        # بروزرسانی شماره خط
+        # ================== مرحله ۷: به‌روزرسانی last_line.txt ==================
         new_last_line = last_line + len(lines_to_send)
         with open('last_line.txt', 'w') as f:
             f.write(str(new_last_line))
-        print(f"✅ ارسال موفق! خط جدید: {new_last_line}")
-        print(f"📊 {len(lines_to_send)} خط ارسال شد")
+        
+        print(f"\n✅ ارسال موفقیت‌آمیز!")
+        print(f"📊 آمار:")
+        print(f"   • خطوط ارسال شده: {len(lines_to_send)}")
+        print(f"   • از خط: {last_line + 1} تا {new_last_line}")
+        print(f"   • last_line.txt به‌روز شد: {new_last_line}")
+        
     else:
         print(f"❌ خطای تلگرام: {result.get('description')}")
         
 except Exception as e:
     print(f"❌ خطای اتصال: {e}")
+
+print("\n" + "=" * 50)
+print("پایان اجرا")
+print("=" * 50)
