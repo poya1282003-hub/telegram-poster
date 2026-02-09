@@ -55,20 +55,32 @@ print(f"📤 ارسال {len(lines_to_send)} خط...")
 # ==================== ساخت پیام ====================
 post_number = (last_line // 3) + 1
 today = datetime.now()
-date_str = today.strftime("%H:%M - %Y/%m/%d")
 
-# شروع پیام - با حروف بزرگ
-message = f"<b>{date_str} | #{post_number}</b>\n\n"
+# ایموجی‌های متحرک
+animated_emojis = ["🎯", "🚀", "⚡", "🔑", "🌊", "✨", "🎉", "🔥", "💫", "🌟"]
+static_emojis = ["🕐", "🕑", "🕒", "🕓", "🕔", "🕕", "🕖", "🕗", "🕘", "🕙"]
 
-# متن اصلی برای کپی (همه ۳ لینک)
+# انتخاب ایموجی
+main_emoji = animated_emojis[post_number % len(animated_emojis)]
+time_emoji = static_emojis[post_number % len(static_emojis)]
+
+# تاریخ و زمان
+date_str = today.strftime("%Y/%m/%d")
+time_str = today.strftime("%H:%M")
+
+# 🔴 همه اطلاعات در یک سطر
+header_line = f"{main_emoji}<b> #{post_number}</b>  {time_emoji}<b>{time_str}</b>  📅<b>{date_str}</b>"
+
+# ساخت پیام
+message = f"{header_line}\n\n"
+
+# متن اصلی برای کپی
 all_lines_text = "\n".join(lines_to_send)
 message += f"<pre>{all_lines_text}</pre>\n\n"
 
-# فقط یک خط پایینی
-message += "⏰ هر ۳۰ دقیقه پست جدید\n\n"
-
-# آدرس کانال - با حروف بزرگ
-message += "<b>@V2REYONLINE</b>"
+# خط پایین
+message += "🔄 هر ۳۰ دقیقه پست جدید\n\n"
+message += "@V2REYONLINE"
 
 # ==================== ارسال ====================
 url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
