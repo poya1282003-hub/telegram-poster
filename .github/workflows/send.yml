@@ -1,68 +1,64 @@
-name: "30-Minute Telegram Bot"
+name: Send Telegram Message
+
 on:
-  # دو trigger جداگانه برای اطمینان
   schedule:
-    - cron: "0,30 * * * *"  # دقیقه 0 و 30 هر ساعت UTC
-  
-  # اجرای دستی
-  workflow_dispatch:
-    inputs:
-      force:
-        description: 'Force send even if no new lines'
-        required: false
-        default: 'false'
+    - cron: '*/30 * * * *'  # هر 30 دقیقه
+  workflow_dispatch:  # اجرای دستی
 
 jobs:
-  send:
+  send-message:
     runs-on: ubuntu-latest
+    
     permissions:
-      contents: write  # این خط حیاتی است
+      contents: write
     
     steps:
-      - name: 📅 Calculate Iran time
-        id: time
-        run: |
-          IRAN_TIME=$(TZ=Asia/Tehran date '+%H:%M')
-          echo "iran_time=$IRAN_TIME" >> $GITHUB_OUTPUT
-          echo "📱 Iran Time: $IRAN_TIME"
-          echo "🕐 UTC Time: $(date -u)"
-          
-      - name: 🔄 Checkout code with token
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}  # این خط مهم است
-          
-      - name: 🐍 Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.10"
-          
-      - name: 📦 Install dependencies
-        run: pip install requests jdatetime
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
         
-      - name: 🤖 Run Telegram Bot
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
-        run: python bot.py
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
         
-      - name: 💾 Save progress
-        if: success()
-        run: |
-          echo "📊 Checking for changes..."
-          git status
-          
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          
-          # Add and check if there are changes
-          git add last_line.txt
-          
-          if git diff --staged --quiet; then
-            echo "📭 No changes to commit"
-          else
-            echo "📝 Committing changes..."
-            git commit -m "⏱️ Auto-update at ${{ steps.time.outputs.iran_time }} IR"
-            git push
-            echo "✅ Changes pushed successfully"
-          fi
+    - name: Install dependencies
+      run: pip install requests jdatetime
+      
+    - name: Create last_line.txt if not exists
+      run: |
+        if [ ! -f "last_line.txt" ]; then
+          echo "0" > last_line.txt
+          echo "✅ فایل last_line.txt ایجاد شد"
+        else
+          echo "📁 فایل last_line.txt موجود است"
+        fi
+        
+    - name: Show current last_line.txt
+      run: |
+        echo "📄 محتوای فعلی last_line.txt:"
+        cat last_line.txt || echo "فایل وجود ندارد"
+        
+    - name: Run Telegram Bot
+      env:
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+      run: |
+        echo "🤖 شروع اجرای ربات..."
+        python bot.py
+        echo "🤖 پایان اجرای ربات"
+        
+    - name: Commit and push changes
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git add last_line.txt
+        
+        if git diff --staged --quiet; then
+          echo "✅ هیچ تغییری برای commit وجود ندارد"
+        else
+          git commit -m "🤖 Auto-update last_line.txt [skip ci]"
+          git push
+          echo "🎉 تغییرات با موفقیت push شد"
+        fi
