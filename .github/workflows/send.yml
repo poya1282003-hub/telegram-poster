@@ -1,37 +1,51 @@
-name: "Send Telegram Message"
+name: "30-Minute Telegram Bot"
 on:
+  # دو trigger جداگانه برای اطمینان
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "0,30 * * * *"  # دقیقه 0 و 30 هر ساعت UTC
+      
+  # اجرای دستی
   workflow_dispatch:
+    inputs:
+      force:
+        description: 'Force send even if no new lines'
+        required: false
+        default: 'false'
 
 jobs:
   send:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     
     steps:
-      - name: Checkout
+      - name: 📅 Calculate Iran time
+        id: time
+        run: |
+          IRAN_TIME=$(TZ=Asia/Tehran date '+%H:%M')
+          echo "iran_time=$IRAN_TIME" >> $GITHUB_OUTPUT
+          echo "📱 Iran Time: $IRAN_TIME"
+          
+      - name: 🔄 Checkout code
         uses: actions/checkout@v4
         
-      - name: Setup Python
+      - name: 🐍 Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: "3.10"
           
-      - name: Install dependencies
-        run: |
-          pip install requests jdatetime
-          
-      - name: Run bot
+      - name: 📦 Install dependencies
+        run: pip install requests jdatetime
+        
+      - name: 🤖 Run Telegram Bot
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
         run: python bot.py
         
-      - name: Commit changes
+      - name: 💾 Save progress
+        if: success()
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "Auto Bot"
+          git config user.email "bot@noreply.github.com"
           git add last_line.txt
-          git diff --cached --quiet || git commit -m "Update last_line" && git push
+          git commit -m "⏱️ Update at ${{ steps.time.outputs.iran_time }} IR" || echo "No changes"
+          git push
