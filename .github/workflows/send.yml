@@ -1,4 +1,4 @@
-name: "📢 ارسال خودکار پست تلگرام"
+name: "📢 ارسال خودکار پست تلگرام (نسخه پایدار)"
 
 on:
   # زمان‌بندی هر ۳۰ دقیقه
@@ -17,21 +17,18 @@ on:
 env:
   PYTHON_VERSION: "3.10"
   TZ: "Asia/Tehran"
+  # متغیرهای دیباگ
+  TELEGRAM_DEBUG: "true"
+  PYTHONUNBUFFERED: "1"
 
 jobs:
   send-telegram-post:
     name: "ارسال پست به تلگرام"
-    runs-on: ubuntu-latest-8core
-    
-    # دسترسی‌های لازم
-    permissions:
-      contents: write
-      actions: write
-      checks: write
+    runs-on: ubuntu-latest
     
     # استراتژی ادامه در صورت خطا
     continue-on-error: false
-    timeout-minutes: 5
+    timeout-minutes: 15  # افزایش یافت
     
     steps:
       # مرحله ۱: دریافت کد
@@ -39,7 +36,6 @@ jobs:
         id: checkout
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 1
           clean: true
       
@@ -60,7 +56,6 @@ jobs:
           pip install --upgrade pip
           pip install requests==2.31.0
           pip install jdatetime==4.1.1
-          pip cache purge
           echo "✅ نصب کامل شد"
       
       # مرحله ۴: بررسی وضعیت فایل‌ها
@@ -71,8 +66,9 @@ jobs:
           
           # بررسی فایل texts.txt
           if [ -f "texts.txt" ]; then
-            LINE_COUNT=$(grep -c '[^[:space:]]' texts.txt || echo "0")
-            echo "📄 texts.txt: $LINE_COUNT خط"
+            LINE_COUNT=$(wc -l < texts.txt || echo "0")
+            NON_EMPTY_COUNT=$(grep -c '[^[:space:]]' texts.txt || echo "0")
+            echo "📄 texts.txt: $LINE_COUNT خط (غیرخالی: $NON_EMPTY_COUNT)"
           else
             echo "❌ فایل texts.txt یافت نشد!"
             exit 1
@@ -83,17 +79,27 @@ jobs:
             echo "0" > last_line.txt
             echo "📝 last_line.txt ایجاد شد (مقدار: 0)"
           else
-            CURRENT_LINE=$(cat last_line.txt | tr -d '\n' || echo "0")
+            CURRENT_LINE=$(cat last_line.txt 2>/dev/null | tr -d '\n' || echo "0")
             echo "📝 last_line.txt موجود (مقدار: $CURRENT_LINE)"
           fi
           
-          # بررسی سکرت‌ها
+          # بررسی bot.py
+          if [ ! -f "bot.py" ]; then
+            echo "❌ فایل bot.py یافت نشد!"
+            exit 1
+          fi
+          
+          # بررسی سکرت‌ها (فقط هشدار)
           if [ -z "${{ secrets.TELEGRAM_BOT_TOKEN }}" ]; then
             echo "⚠️ هشدار: TELEGRAM_BOT_TOKEN تنظیم نشده"
+          else
+            echo "✅ TELEGRAM_BOT_TOKEN تنظیم شده"
           fi
           
           if [ -z "${{ secrets.TELEGRAM_CHANNEL_ID }}" ]; then
             echo "⚠️ هشدار: TELEGRAM_CHANNEL_ID تنظیم نشده"
+          else
+            echo "✅ TELEGRAM_CHANNEL_ID تنظیم شده"
           fi
           
           echo "✅ بررسی کامل شد"
@@ -104,23 +110,29 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+          TELEGRAM_DEBUG: ${{ env.TELEGRAM_DEBUG }}
           GITHUB_RUN_ID: ${{ github.run_id }}
-          GITHUB_RUN_NUMBER: ${{ github.run_number }}
           RUN_REASON: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.reason || 'اتوماتیک' }}
         run: |
           echo "🚀 شروع ربات تلگرام"
           echo "📊 اطلاعات اجرا:"
           echo "   • Run ID: $GITHUB_RUN_ID"
-          echo "   • Run Number: $GITHUB_RUN_NUMBER"
           echo "   • دلیل اجرا: $RUN_REASON"
           echo "   • زمان سرور: $(date)"
           echo "   • منطقه زمانی: $TZ"
+          echo "   • Python Version: $(python --version)"
           echo ""
           
           # اجرای اسکریپت پایتون
+          START_TIME=$(date +%s)
           python bot.py
-          
           EXIT_CODE=$?
+          END_TIME=$(date +%s)
+          DURATION=$((END_TIME - START_TIME))
+          
+          echo ""
+          echo "⏱️ مدت اجرا: $DURATION ثانیه"
+          
           if [ $EXIT_CODE -eq 0 ]; then
             echo "✅ ربات با موفقیت اجرا شد"
           else
@@ -138,47 +150,57 @@ jobs:
           # تنظیم اطلاعات کاربر
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config --global pull.rebase false
           
           # اضافه کردن فایل تغییر یافته
-          git add last_line.txt
+          git add last_line.txt 2>/dev/null || true
           
           # بررسی آیا تغییری وجود دارد
-          if git diff --cached --quiet; then
-            echo "📭 هیچ تغییری برای commit وجود ندارد"
-            echo "CHANGES=false" >> $GITHUB_OUTPUT
-          else
+          if ! git diff --cached --quiet; then
             # ایجاد commit
             COMMIT_MSG="🤖 به‌روزرسانی خودکار last_line.txt"
             if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
               COMMIT_MSG="$COMMIT_MSG (دستی)"
             fi
             
-            git commit -m "$COMMIT_MSG" -m "Run: ${{ github.run_id }} | شماره: ${{ github.run_number }}"
+            git commit -m "$COMMIT_MSG" -m "Run: ${{ github.run_id }}"
             
             # push تغییرات
             echo "📤 در حال ارسال تغییرات..."
+            git pull --rebase origin ${{ github.ref_name }}
             git push origin HEAD:${{ github.ref_name }}
             
             echo "✅ تغییرات با موفقیت ذخیره شد"
             echo "CHANGES=true" >> $GITHUB_OUTPUT
             echo "COMMIT_HASH=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+          else
+            echo "📭 هیچ تغییری برای commit وجود ندارد"
+            echo "CHANGES=false" >> $GITHUB_OUTPUT
           fi
       
       # مرحله ۷: گزارش نهایی
       - name: "📋 گزارش اجرا"
         if: always()
         run: |
-          echo "=" * 60
+          echo "══════════════════════════════════════════"
           echo "📊 گزارش نهایی اجرا"
-          echo "=" * 60
+          echo "══════════════════════════════════════════"
           echo ""
           echo "🏁 وضعیت: ${{ job.status }}"
           echo "🆔 شناسه اجرا: ${{ github.run_id }}"
           echo "🔢 شماره اجرا: ${{ github.run_number }}"
-          echo "⏰ زمان شروع: ${{ steps.run-bot.outputs.start_time }}"
-          echo "🕒 مدت اجرا: ${{ steps.run-bot.outputs.duration }} ثانیه"
-          echo "📝 آخرین خط ارسال شده: $(cat last_line.txt 2>/dev/null || echo 'نامشخص')"
+          echo "🔧 دلیل اجرا: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.reason || 'اتوماتیک' }}"
+          
+          # خواندن وضعیت فعلی
+          if [ -f "last_line.txt" ]; then
+            LAST_LINE=$(cat last_line.txt 2>/dev/null | tr -d '\n' || echo 'نامشخص')
+            echo "📍 آخرین خط ارسال شده: $LAST_LINE"
+          fi
+          
+          # تعداد کل خطوط
+          if [ -f "texts.txt" ]; then
+            TOTAL_LINES=$(wc -l < texts.txt || echo "0")
+            echo "📄 تعداد کل خطوط: $TOTAL_LINES"
+          fi
           
           if [ "${{ steps.commit-changes.outputs.CHANGES }}" = "true" ]; then
             echo "💾 تغییرات ذخیره شد: ${{ steps.commit-changes.outputs.COMMIT_HASH }}"
