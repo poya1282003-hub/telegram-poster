@@ -1,7 +1,9 @@
 name: "Send Telegram Message"
 on:
   schedule:
-    - cron: "*/30 * * * *"
+    # هر ۳۰ دقیقه در ۲۴ ساعت
+    - cron: "0,30 * * * *"  # دقیقه‌های ۰ و ۳۰ هر ساعت
+    
   workflow_dispatch:
 
 jobs:
@@ -34,4 +36,4 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add last_line.txt
-          git diff --cached --quiet || git commit -m "Update last_line" && git push
+          git diff --cached --quiet || (git commit -m "Update last_line" && git push)
