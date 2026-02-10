@@ -2,71 +2,89 @@ name: Send Telegram Message
 
 on:
   schedule:
-    - cron: '0,30 * * * *'  # دقیقه 0 و 30 هر ساعت
-  workflow_dispatch:
+    - cron: '*/30 * * * *'  # هر 30 دقیقه
+  workflow_dispatch:  # اجرای دستی
 
 jobs:
   send-message:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
     
+    # 🔑 این بخش مهم است - دسترسی‌ها را اضافه کن
     permissions:
-      contents: write
+      contents: write  # اجازه نوشتن در ریپو
+      pull-requests: write
+      issues: write
     
     steps:
-      - name: Check current time
-        run: |
-          echo "🕐 UTC Time: $(date -u)"
-          echo "🇮🇷 Iran Time: $(TZ=Asia/Tehran date)"
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        # 🔑 از توکن مخصوص استفاده کن
+        token: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        
+    - name: Install dependencies
+      run: pip install requests
+      
+    - name: Create last_line.txt if not exists
+      run: |
+        if [ ! -f "last_line.txt" ]; then
+          echo "0" > last_line.txt
+          echo "✅ فایل last_line.txt ایجاد شد"
+        else
+          echo "📁 فایل last_line.txt موجود است"
+        fi
+        
+    - name: Show current last_line.txt
+      run: |
+        echo "📄 محتوای فعلی last_line.txt:"
+        cat last_line.txt || echo "فایل وجود ندارد"
+        
+    - name: Run Telegram Bot
+      env:
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+      run: |
+        echo "🤖 شروع اجرای ربات..."
+        python bot.py
+        echo "🤖 پایان اجرای ربات"
+        
+    - name: Show updated last_line.txt
+      run: |
+        echo "📄 محتوای جدید last_line.txt:"
+        cat last_line.txt || echo "فایل وجود ندارد"
+        
+    - name: Commit and push changes
+      run: |
+        echo "💾 شروع ذخیره‌سازی تغییرات..."
+        
+        # تنظیم اطلاعات کاربر
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        
+        # اضافه کردن فایل
+        git add last_line.txt
+        
+        # بررسی آیا تغییری وجود دارد
+        if git diff --staged --quiet; then
+          echo "✅ هیچ تغییری برای commit وجود ندارد"
+        else
+          echo "📝 تغییرات پیدا شد - در حال commit..."
+          git commit -m "🤖 Auto-update last_line.txt [skip ci]"
           
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-          
-      - name: Install dependencies
-        run: |
-          pip install requests jdatetime
-          
-      - name: Check files
-        run: |
-          echo "📁 Files in repo:"
-          ls -la
-          echo "📄 First 3 lines of texts.txt:"
-          head -3 texts.txt || echo "texts.txt not found"
-          echo "📊 last_line.txt content:"
-          cat last_line.txt || echo "last_line.txt not found"
-          
-      - name: Run Telegram Bot
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
-        run: |
-          echo "🤖 Starting bot..."
-          python bot.py
-          
-      - name: Commit and push changes
-        if: success()
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add last_line.txt
-          
-          if ! git diff --staged --quiet; then
-            git commit -m "🤖 Auto-update: $(TZ=Asia/Tehran date '+%Y-%m-%d %H:%M')"
-            git push
-            echo "✅ Changes pushed"
-          else
-            echo "📭 No changes to commit"
-          fi
-          
-      - name: Log completion
-        if: always()
-        run: |
-          echo "🏁 Workflow completed at: $(date)"
-          echo "🕐 Iran time: $(TZ=Asia/Tehran date)"
+          echo "📤 در حال push به ریپو..."
+          git push
+          echo "🎉 تغییرات با موفقیت push شد"
+        fi
+        
+        echo "💾 پایان ذخیره‌سازی"
+        
+    - name: Verify push
+      run: |
+        echo "🔍 تأیید آخرین وضعیت..."
+        echo "آخرین commit:"
+        git log --oneline -1
