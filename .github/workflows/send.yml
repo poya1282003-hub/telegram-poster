@@ -1,212 +1,37 @@
-name: "📢 ارسال خودکار پست تلگرام (نسخه پایدار)"
-
+name: "Send Telegram Message"
 on:
-  # زمان‌بندی هر ۳۰ دقیقه
   schedule:
     - cron: "*/30 * * * *"
-  
-  # اجرای دستی از GitHub UI
   workflow_dispatch:
-    inputs:
-      reason:
-        description: "دلیل اجرای دستی"
-        required: false
-        default: "تست دستی"
-
-# تنظیمات محیط اجرا
-env:
-  PYTHON_VERSION: "3.10"
-  TZ: "Asia/Tehran"
-  # متغیرهای دیباگ
-  TELEGRAM_DEBUG: "true"
-  PYTHONUNBUFFERED: "1"
 
 jobs:
-  send-telegram-post:
-    name: "ارسال پست به تلگرام"
+  send:
     runs-on: ubuntu-latest
-    
-    # استراتژی ادامه در صورت خطا
-    continue-on-error: false
-    timeout-minutes: 15  # افزایش یافت
+    permissions:
+      contents: write
     
     steps:
-      # مرحله ۱: دریافت کد
-      - name: "📥 دریافت ریپوزیتوری"
-        id: checkout
+      - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
-          clean: true
-      
-      # مرحله ۲: تنظیم پایتون
-      - name: "🐍 تنظیم پایتون ${{ env.PYTHON_VERSION }}"
-        id: setup-python
+        
+      - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: ${{ env.PYTHON_VERSION }}
-          cache: 'pip'
-          cache-dependency-path: '**/*requirements*.txt'
-      
-      # مرحله ۳: نصب وابستگی‌ها
-      - name: "📦 نصب کتابخانه‌های مورد نیاز"
-        id: install-deps
+          python-version: "3.10"
+          
+      - name: Install dependencies
         run: |
-          echo "🔄 در حال نصب کتابخانه‌ها..."
-          pip install --upgrade pip
-          pip install requests==2.31.0
-          pip install jdatetime==4.1.1
-          echo "✅ نصب کامل شد"
-      
-      # مرحله ۴: بررسی وضعیت فایل‌ها
-      - name: "📊 بررسی وضعیت سیستم"
-        id: system-check
-        run: |
-          echo "🔍 بررسی فایل‌های ضروری..."
+          pip install requests jdatetime
           
-          # بررسی فایل texts.txt
-          if [ -f "texts.txt" ]; then
-            LINE_COUNT=$(wc -l < texts.txt || echo "0")
-            NON_EMPTY_COUNT=$(grep -c '[^[:space:]]' texts.txt || echo "0")
-            echo "📄 texts.txt: $LINE_COUNT خط (غیرخالی: $NON_EMPTY_COUNT)"
-          else
-            echo "❌ فایل texts.txt یافت نشد!"
-            exit 1
-          fi
-          
-          # بررسی/ایجاد last_line.txt
-          if [ ! -f "last_line.txt" ]; then
-            echo "0" > last_line.txt
-            echo "📝 last_line.txt ایجاد شد (مقدار: 0)"
-          else
-            CURRENT_LINE=$(cat last_line.txt 2>/dev/null | tr -d '\n' || echo "0")
-            echo "📝 last_line.txt موجود (مقدار: $CURRENT_LINE)"
-          fi
-          
-          # بررسی bot.py
-          if [ ! -f "bot.py" ]; then
-            echo "❌ فایل bot.py یافت نشد!"
-            exit 1
-          fi
-          
-          # بررسی سکرت‌ها (فقط هشدار)
-          if [ -z "${{ secrets.TELEGRAM_BOT_TOKEN }}" ]; then
-            echo "⚠️ هشدار: TELEGRAM_BOT_TOKEN تنظیم نشده"
-          else
-            echo "✅ TELEGRAM_BOT_TOKEN تنظیم شده"
-          fi
-          
-          if [ -z "${{ secrets.TELEGRAM_CHANNEL_ID }}" ]; then
-            echo "⚠️ هشدار: TELEGRAM_CHANNEL_ID تنظیم نشده"
-          else
-            echo "✅ TELEGRAM_CHANNEL_ID تنظیم شده"
-          fi
-          
-          echo "✅ بررسی کامل شد"
-      
-      # مرحله ۵: اجرای ربات اصلی
-      - name: "🤖 اجرای ربات تلگرام"
-        id: run-bot
+      - name: Run bot
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
-          TELEGRAM_DEBUG: ${{ env.TELEGRAM_DEBUG }}
-          GITHUB_RUN_ID: ${{ github.run_id }}
-          RUN_REASON: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.reason || 'اتوماتیک' }}
+        run: python bot.py
+        
+      - name: Commit changes
         run: |
-          echo "🚀 شروع ربات تلگرام"
-          echo "📊 اطلاعات اجرا:"
-          echo "   • Run ID: $GITHUB_RUN_ID"
-          echo "   • دلیل اجرا: $RUN_REASON"
-          echo "   • زمان سرور: $(date)"
-          echo "   • منطقه زمانی: $TZ"
-          echo "   • Python Version: $(python --version)"
-          echo ""
-          
-          # اجرای اسکریپت پایتون
-          START_TIME=$(date +%s)
-          python bot.py
-          EXIT_CODE=$?
-          END_TIME=$(date +%s)
-          DURATION=$((END_TIME - START_TIME))
-          
-          echo ""
-          echo "⏱️ مدت اجرا: $DURATION ثانیه"
-          
-          if [ $EXIT_CODE -eq 0 ]; then
-            echo "✅ ربات با موفقیت اجرا شد"
-          else
-            echo "❌ ربات با خطا مواجه شد (کد خروج: $EXIT_CODE)"
-            exit $EXIT_CODE
-          fi
-      
-      # مرحله ۶: ذخیره تغییرات
-      - name: "💾 ذخیره‌سازی تغییرات"
-        id: commit-changes
-        if: always()
-        run: |
-          echo "💾 شروع فرآیند ذخیره‌سازی..."
-          
-          # تنظیم اطلاعات کاربر
           git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          
-          # اضافه کردن فایل تغییر یافته
-          git add last_line.txt 2>/dev/null || true
-          
-          # بررسی آیا تغییری وجود دارد
-          if ! git diff --cached --quiet; then
-            # ایجاد commit
-            COMMIT_MSG="🤖 به‌روزرسانی خودکار last_line.txt"
-            if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-              COMMIT_MSG="$COMMIT_MSG (دستی)"
-            fi
-            
-            git commit -m "$COMMIT_MSG" -m "Run: ${{ github.run_id }}"
-            
-            # push تغییرات
-            echo "📤 در حال ارسال تغییرات..."
-            git pull --rebase origin ${{ github.ref_name }}
-            git push origin HEAD:${{ github.ref_name }}
-            
-            echo "✅ تغییرات با موفقیت ذخیره شد"
-            echo "CHANGES=true" >> $GITHUB_OUTPUT
-            echo "COMMIT_HASH=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
-          else
-            echo "📭 هیچ تغییری برای commit وجود ندارد"
-            echo "CHANGES=false" >> $GITHUB_OUTPUT
-          fi
-      
-      # مرحله ۷: گزارش نهایی
-      - name: "📋 گزارش اجرا"
-        if: always()
-        run: |
-          echo "══════════════════════════════════════════"
-          echo "📊 گزارش نهایی اجرا"
-          echo "══════════════════════════════════════════"
-          echo ""
-          echo "🏁 وضعیت: ${{ job.status }}"
-          echo "🆔 شناسه اجرا: ${{ github.run_id }}"
-          echo "🔢 شماره اجرا: ${{ github.run_number }}"
-          echo "🔧 دلیل اجرا: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.reason || 'اتوماتیک' }}"
-          
-          # خواندن وضعیت فعلی
-          if [ -f "last_line.txt" ]; then
-            LAST_LINE=$(cat last_line.txt 2>/dev/null | tr -d '\n' || echo 'نامشخص')
-            echo "📍 آخرین خط ارسال شده: $LAST_LINE"
-          fi
-          
-          # تعداد کل خطوط
-          if [ -f "texts.txt" ]; then
-            TOTAL_LINES=$(wc -l < texts.txt || echo "0")
-            echo "📄 تعداد کل خطوط: $TOTAL_LINES"
-          fi
-          
-          if [ "${{ steps.commit-changes.outputs.CHANGES }}" = "true" ]; then
-            echo "💾 تغییرات ذخیره شد: ${{ steps.commit-changes.outputs.COMMIT_HASH }}"
-          else
-            echo "📭 هیچ تغییری ذخیره نشد"
-          fi
-          
-          echo ""
-          echo "✅ اجرای workflow کامل شد"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add last_line.txt
+          git diff --cached --quiet || git commit -m "Update last_line" && git push
