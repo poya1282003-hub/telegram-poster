@@ -3,7 +3,7 @@ on:
   # دو trigger جداگانه برای اطمینان
   schedule:
     - cron: "0,30 * * * *"  # دقیقه 0 و 30 هر ساعت UTC
-      
+  
   # اجرای دستی
   workflow_dispatch:
     inputs:
@@ -15,6 +15,8 @@ on:
 jobs:
   send:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # این خط حیاتی است
     
     steps:
       - name: 📅 Calculate Iran time
@@ -23,10 +25,13 @@ jobs:
           IRAN_TIME=$(TZ=Asia/Tehran date '+%H:%M')
           echo "iran_time=$IRAN_TIME" >> $GITHUB_OUTPUT
           echo "📱 Iran Time: $IRAN_TIME"
+          echo "🕐 UTC Time: $(date -u)"
           
-      - name: 🔄 Checkout code
+      - name: 🔄 Checkout code with token
         uses: actions/checkout@v4
-        
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}  # این خط مهم است
+          
       - name: 🐍 Setup Python
         uses: actions/setup-python@v4
         with:
@@ -44,8 +49,20 @@ jobs:
       - name: 💾 Save progress
         if: success()
         run: |
-          git config user.name "Auto Bot"
-          git config user.email "bot@noreply.github.com"
+          echo "📊 Checking for changes..."
+          git status
+          
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Add and check if there are changes
           git add last_line.txt
-          git commit -m "⏱️ Update at ${{ steps.time.outputs.iran_time }} IR" || echo "No changes"
-          git push
+          
+          if git diff --staged --quiet; then
+            echo "📭 No changes to commit"
+          else
+            echo "📝 Committing changes..."
+            git commit -m "⏱️ Auto-update at ${{ steps.time.outputs.iran_time }} IR"
+            git push
+            echo "✅ Changes pushed successfully"
+          fi
