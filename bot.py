@@ -2,6 +2,7 @@
 import os
 import requests
 from datetime import datetime, timedelta
+import jdatetime  # 👈 کتابخانه تاریخ شمسی
 
 print("🤖 شروع ربات")
 
@@ -59,21 +60,30 @@ post_number = (last_line // 3) + 1
 utc_now = datetime.utcnow()
 iran_time = utc_now + timedelta(hours=3, minutes=30)
 
+# 🔴 تبدیل به تاریخ شمسی
+shamsi_date = jdatetime.datetime.fromgregorian(
+    year=iran_time.year,
+    month=iran_time.month,
+    day=iran_time.day,
+    hour=iran_time.hour,
+    minute=iran_time.minute
+)
+
 # ایموجی‌های متحرک
 animated_emojis = ["🎯", "🚀", "⚡", "🔑", "🌊", "✨", "🎉", "🔥", "💫", "🌟"]
 static_emojis = ["🕐", "🕑", "🕒", "🕓", "🕔", "🕕", "🕖", "🕗", "🕘", "🕙"]
 
 # انتخاب ایموجی
 main_emoji = animated_emojis[post_number % len(animated_emojis)]
-hour_index = iran_time.hour % 12
+hour_index = shamsi_date.hour % 12
 time_emoji = static_emojis[hour_index]
 
-# تاریخ و زمان ایران
-date_str = iran_time.strftime("%Y/%m/%d")
-time_str = iran_time.strftime("%H:%M")
+# تاریخ و زمان شمسی
+date_str = shamsi_date.strftime("%Y/%m/%d")  # مثلاً 1404/11/20
+time_str = shamsi_date.strftime("%H:%M")
 
-# 🔴 تغییر اینجا: اضافه کردن "post" کنار شماره
-header_line = f"{main_emoji}<b> #‌{post_number} post</b>  {time_emoji}<b>{time_str}</b>  📅<b>{date_str}</b>"
+# 🔴 تغییر: استفاده از تاریخ شمسی
+header_line = f"{main_emoji}<b> post #{post_number}</b>  {time_emoji}<b>{time_str}</b>  📅<b>{date_str}</b>"
 
 # ساخت پیام
 message = f"{header_line}\n\n"
@@ -108,8 +118,9 @@ try:
         print(f"✅ پست #{post_number} ارسال شد")
         print(f"📍 موقعیت جدید: {new_last}")
         
-        # نمایش زمان‌ها
-        print(f"🕒 زمان ایران: {iran_time.strftime('%H:%M')}")
+        # نمایش زمان‌ها برای دیباگ
+        print(f"🕒 زمان میلادی: {iran_time.strftime('%Y/%m/%d %H:%M')}")
+        print(f"🕒 زمان شمسی: {date_str} {time_str}")
         
         # نمایش خلاصه
         print("\n📬 محتوای ارسال شده:")
