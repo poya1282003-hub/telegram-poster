@@ -1,10 +1,9 @@
 name: "Send Telegram Message"
 on:
   schedule:
-    # هر ۳۰ دقیقه در ۲۴ ساعت
-    - cron: "0,30 * * * *"  # دقیقه‌های ۰ و ۳۰ هر ساعت
-    
-  workflow_dispatch:
+    # هر ۳۰ دقیقه (دقیقه ۰ و ۳۰ هر ساعت)
+    - cron: "0,30 * * * *"
+  workflow_dispatch:  # امکان اجرای دستی
 
 jobs:
   send:
@@ -13,27 +12,41 @@ jobs:
       contents: write
     
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
         
-      - name: Setup Python
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: "3.10"
           
       - name: Install dependencies
-        run: |
-          pip install requests jdatetime
+        run: pip install requests jdatetime
           
-      - name: Run bot
+      - name: Create last_line.txt if missing
+        run: |
+          if [ ! -f "last_line.txt" ]; then
+            echo "0" > last_line.txt
+            echo "✅ last_line.txt created"
+          fi
+          
+      - name: Run Telegram Bot
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
         run: python bot.py
-        
-      - name: Commit changes
+          
+      - name: Commit and push changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # فقط اگر تغییری وجود دارد commit کن
           git add last_line.txt
-          git diff --cached --quiet || (git commit -m "Update last_line" && git push)
+          if git diff --cached --quiet; then
+            echo "✅ No changes to commit"
+          else
+            git commit -m "🤖 Auto-update: last_line.txt"
+            git push
+            echo "✅ Changes pushed successfully"
+          fi
