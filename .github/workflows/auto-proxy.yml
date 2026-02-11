@@ -2,8 +2,8 @@ name: Auto Proxy System
 
 on:
   schedule:
-    - cron: '0,30 * * * *'  # هر ۳۰ دقیقه
-  workflow_dispatch:  # اجرای دستی
+    - cron: '*/5 * * * *'  # هر ۵ دقیقه یکبار
+  workflow_dispatch:
 
 jobs:
   run-bot:
