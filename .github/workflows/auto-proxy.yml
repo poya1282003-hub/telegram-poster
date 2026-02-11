@@ -1,0 +1,43 @@
+name: Auto Proxy System
+
+on:
+  schedule:
+    - cron: '0,30 * * * *'  # هر ۳۰ دقیقه
+  workflow_dispatch:  # اجرای دستی
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: 📥 دریافت کد
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: 🐍 نصب پایتون
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          
+      - name: 📦 نصب کتابخانه‌ها
+        run: pip install requests jdatetime
+        
+      - name: 🔄 آپدیت پروکسی‌ها
+        run: python update_proxies.py
+        
+      - name: 🤖 ارسال به تلگرام
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+        run: python bot.py
+        
+      - name: 💾 ذخیره تغییرات
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add texts.txt last_line.txt
+          git diff --staged --quiet || git commit -m "🔄 آپدیت خودکار $(date +'%H:%M')"
+          git push
