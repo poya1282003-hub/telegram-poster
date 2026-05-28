@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "45.63.7.19",
-            "port": 49632,
+            "address": "n1753101277.4u9ma.icu",
+            "port": 443,
             "users": [
               {
-                "id": "05f2bbe3-f29a-480f-ebfb-0deebb80741d",
+                "id": "6ea48dfe-7de2-45dc-9267-d4d9effad9fc",
                 "security": "auto",
                 "level": 0
               }
@@ -41,11 +41,11 @@
       },
       "streamSettings": {
         "network": "ws",
-        "security": "",
+        "security": "tls",
         "wsSettings": {
-          "path": "/05f2bbe3-f29a-480f-ebfb-0deebb80741d",
+          "path": "/",
           "headers": {
-            "Host": ""
+            "Host": "n1753101277.4u9ma.icu"
           }
         }
       },
