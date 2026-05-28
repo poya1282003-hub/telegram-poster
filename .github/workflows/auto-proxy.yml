@@ -2,7 +2,7 @@ name: Update Proxies Only
 
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '*/5 * * * *'  # هر 5 دقیقه (می‌توانی به 30 تغییر دهی)
   workflow_dispatch:
 
 jobs:
@@ -24,19 +24,22 @@ jobs:
       - name: 📦 نصب کتابخانه
         run: pip install requests
         
-      - name: 🔄 آپدیت پروکسی‌ها
+      - name: 🔄 آپدیت پروکسی‌ها (جمع‌آوری لینک‌ها)
         run: python update_proxies.py
+        
+      - name: 🔧 ساخت فایل config.json برای Xray  👈 مرحله جدید
+        run: python build_xray_config.py
         
       - name: 💾 ذخیره تغییرات
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add texts.txt
+          git add texts.txt config.json last_line.txt  👈 اضافه شدن config.json
           
           if ! git diff --staged --quiet; then
-            git commit -m "🔄 آپدیت پروکسی $(date +'%H:%M')"
+            git commit -m "🔄 آپدیت پروکسی و کانفیگ $(date +'%H:%M')"
             git push
-            echo "✅ پروکسی‌ها آپدیت شدند"
+            echo "✅ پروکسی‌ها و فایل کانفیگ آپدیت شدند"
           else
             echo "📭 پروکسی جدیدی پیدا نشد"
           fi
