@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "n1753101277.4u9ma.icu",
+            "address": "134.195.198.147",
             "port": 443,
             "users": [
               {
-                "id": "6ea48dfe-7de2-45dc-9267-d4d9effad9fc",
+                "id": "03fcc618-b93d-6796-6aed-8a38c975d581",
                 "security": "auto",
                 "level": 0
               }
@@ -43,9 +43,9 @@
         "network": "ws",
         "security": "tls",
         "wsSettings": {
-          "path": "/",
+          "path": "/linkvws",
           "headers": {
-            "Host": "n1753101277.4u9ma.icu"
+            "Host": "inna.cfd"
           }
         }
       },
