@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "134.195.198.147",
-            "port": 443,
+            "address": "usaapp1.jisuyun.top",
+            "port": 2053,
             "users": [
               {
-                "id": "03fcc618-b93d-6796-6aed-8a38c975d581",
+                "id": "4b80aa86-4354-40bb-d2a3-47126cff0bea",
                 "security": "auto",
                 "level": 0
               }
@@ -43,9 +43,9 @@
         "network": "ws",
         "security": "tls",
         "wsSettings": {
-          "path": "/linkvws",
+          "path": "/usavm",
           "headers": {
-            "Host": "inna.cfd"
+            "Host": "usaapp1.jisuyun.top"
           }
         }
       },
