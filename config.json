@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "usaapp2.jisuyun.top",
-            "port": 2053,
+            "address": "107.175.91.118",
+            "port": 443,
             "users": [
               {
-                "id": "95dd45fb-8e36-4ff2-fa9e-24b68a34f3cd",
+                "id": "1bb1f95f-7425-4442-93f7-8fc1bd1a2001",
                 "security": "auto",
                 "level": 0
               }
@@ -43,9 +43,9 @@
         "network": "ws",
         "security": "tls",
         "wsSettings": {
-          "path": "/usavm",
+          "path": "/v2ray-wisp",
           "headers": {
-            "Host": "usaapp2.jisuyun.top"
+            "Host": ""
           }
         }
       },
