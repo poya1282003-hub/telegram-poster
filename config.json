@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "107.175.91.118",
+            "address": "134.195.198.147",
             "port": 443,
             "users": [
               {
-                "id": "1bb1f95f-7425-4442-93f7-8fc1bd1a2001",
+                "id": "03fcc618-b93d-6796-6aed-8a38c975d581",
                 "security": "auto",
                 "level": 0
               }
@@ -43,9 +43,9 @@
         "network": "ws",
         "security": "tls",
         "wsSettings": {
-          "path": "/v2ray-wisp",
+          "path": "/linkvws",
           "headers": {
-            "Host": ""
+            "Host": "inna.cfd"
           }
         }
       },
