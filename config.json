@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "165.227.60.163",
-            "port": 2082,
+            "address": "104.16.0.0",
+            "port": 443,
             "users": [
               {
-                "id": "52b09f69-a832-4070-b9c3-6f10aeb24c6a",
+                "id": "95d2c461-61f5-4dae-bc74-4d10ce1f6236",
                 "security": "auto",
                 "level": 0
               }
@@ -41,11 +41,11 @@
       },
       "streamSettings": {
         "network": "ws",
-        "security": "",
+        "security": "tls",
         "wsSettings": {
-          "path": "52b09f69-a832-4070-b9c3-6f10aeb24c6a-vm",
+          "path": "/ws-gongyi",
           "headers": {
-            "Host": ""
+            "Host": "gongyilm.dpdns.org"
           }
         }
       },
