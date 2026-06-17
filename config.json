@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "104.16.0.0",
+            "address": "134.195.198.147",
             "port": 443,
             "users": [
               {
-                "id": "95d2c461-61f5-4dae-bc74-4d10ce1f6236",
+                "id": "03fcc618-b93d-6796-6aed-8a38c975d581",
                 "security": "auto",
                 "level": 0
               }
@@ -43,9 +43,9 @@
         "network": "ws",
         "security": "tls",
         "wsSettings": {
-          "path": "/ws-gongyi",
+          "path": "/linkvws",
           "headers": {
-            "Host": "gongyilm.dpdns.org"
+            "Host": "inna.cfd"
           }
         }
       },
