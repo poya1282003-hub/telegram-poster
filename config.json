@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "134.195.198.147",
-            "port": 443,
+            "address": "myvpshosting.name.ng",
+            "port": 80,
             "users": [
               {
-                "id": "03fcc618-b93d-6796-6aed-8a38c975d581",
+                "id": "96408f9a-df03-448b-b7e4-ec8e2c216682",
                 "security": "auto",
                 "level": 0
               }
@@ -41,11 +41,11 @@
       },
       "streamSettings": {
         "network": "ws",
-        "security": "tls",
+        "security": "",
         "wsSettings": {
-          "path": "/linkvws",
+          "path": "/vmess",
           "headers": {
-            "Host": "inna.cfd"
+            "Host": "myvpshosting.name.ng"
           }
         }
       },
