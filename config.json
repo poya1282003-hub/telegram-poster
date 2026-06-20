@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "104.16.0.0",
-            "port": 443,
+            "address": "myvpshosting.name.ng",
+            "port": 80,
             "users": [
               {
-                "id": "95d2c461-61f5-4dae-bc74-4d10ce1f6236",
+                "id": "96408f9a-df03-448b-b7e4-ec8e2c216682",
                 "security": "auto",
                 "level": 0
               }
@@ -41,11 +41,11 @@
       },
       "streamSettings": {
         "network": "ws",
-        "security": "tls",
+        "security": "",
         "wsSettings": {
-          "path": "/ws-gongyi",
+          "path": "/vmess",
           "headers": {
-            "Host": "gongyilm.dpdns.org"
+            "Host": "myvpshosting.name.ng"
           }
         }
       },
