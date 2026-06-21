@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "47.250.45.234",
-            "port": 43063,
+            "address": "23.162.200.227",
+            "port": 443,
             "users": [
               {
-                "id": "c77f48f5-4be3-4461-b52b-49998e7b897b",
+                "id": "03fcc618-b93d-6796-6aed-8a38c975d581",
                 "security": "auto",
                 "level": 0
               }
@@ -41,9 +41,9 @@
       },
       "streamSettings": {
         "network": "ws",
-        "security": "",
+        "security": "tls",
         "wsSettings": {
-          "path": "/arki?ed=2048",
+          "path": "/linkvws",
           "headers": {
             "Host": ""
           }
