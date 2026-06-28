@@ -27,7 +27,7 @@
       "settings": {
         "vnext": [
           {
-            "address": "23.162.200.227",
+            "address": "158.51.121.63",
             "port": 443,
             "users": [
               {
@@ -43,9 +43,9 @@
         "network": "ws",
         "security": "tls",
         "wsSettings": {
-          "path": "/linkvws",
+          "path": "linkvws",
           "headers": {
-            "Host": ""
+            "Host": "seribus.org"
           }
         }
       },
