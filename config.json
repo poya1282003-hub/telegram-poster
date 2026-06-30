@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "94.131.108.36",
-            "port": 443,
+            "address": "69.84.182.49",
+            "port": 80,
             "users": [
               {
-                "id": "9855f1f0-a800-40d4-8b38-c7d3eb79302d",
+                "id": "f8975871-a7a0-4906-8835-a23c1258ca1e",
                 "security": "auto",
                 "level": 0
               }
@@ -45,7 +45,7 @@
         "wsSettings": {
           "path": "/",
           "headers": {
-            "Host": ""
+            "Host": "google.whatsapp.snapp.torob.basalam.zula.uplaod-music.ir."
           }
         }
       },
