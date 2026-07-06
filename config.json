@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "173.249.209.146",
-            "port": 20086,
+            "address": "107.173.7.186",
+            "port": 2095,
             "users": [
               {
-                "id": "3935c2dc-dbb0-43f7-b367-fe89abe87fdf",
+                "id": "383737a2-a196-44b6-a9ac-4f8cc23c9637",
                 "security": "auto",
                 "level": 0
               }
@@ -43,9 +43,9 @@
         "network": "ws",
         "security": "",
         "wsSettings": {
-          "path": "/",
+          "path": "383737a2-a196-44b6-a9ac-4f8cc23c9637-vm",
           "headers": {
-            "Host": ""
+            "Host": "107.173.7.186"
           }
         }
       },
