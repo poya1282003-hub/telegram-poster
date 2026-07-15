@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "94.131.108.36",
+            "address": "23.162.200.227",
             "port": 443,
             "users": [
               {
-                "id": "9855f1f0-a800-40d4-8b38-c7d3eb79302d",
+                "id": "03fcc618-b93d-6796-6aed-8a38c975d581",
                 "security": "auto",
                 "level": 0
               }
@@ -41,9 +41,9 @@
       },
       "streamSettings": {
         "network": "ws",
-        "security": "",
+        "security": "tls",
         "wsSettings": {
-          "path": "/",
+          "path": "/linkvws",
           "headers": {
             "Host": ""
           }
