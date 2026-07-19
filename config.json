@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "47.250.45.234",
-            "port": 43063,
+            "address": "45.76.202.45",
+            "port": 4010,
             "users": [
               {
-                "id": "c77f48f5-4be3-4461-b52b-49998e7b897b",
+                "id": "071a8a71-c656-4fb6-a908-4e42eb72243d",
                 "security": "auto",
                 "level": 0
               }
@@ -43,7 +43,7 @@
         "network": "ws",
         "security": "",
         "wsSettings": {
-          "path": "/arki?ed=2048",
+          "path": "/liksuzcp",
           "headers": {
             "Host": ""
           }
