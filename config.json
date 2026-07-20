@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "45.76.202.45",
-            "port": 4010,
+            "address": "xsj004-10.facai2024.com",
+            "port": 443,
             "users": [
               {
-                "id": "071a8a71-c656-4fb6-a908-4e42eb72243d",
+                "id": "1f1aa362-2576-4989-8fdb-7cf1c2c96490",
                 "security": "auto",
                 "level": 0
               }
@@ -41,11 +41,11 @@
       },
       "streamSettings": {
         "network": "ws",
-        "security": "",
+        "security": "tls",
         "wsSettings": {
-          "path": "/liksuzcp",
+          "path": "/1f1aa362-25",
           "headers": {
-            "Host": ""
+            "Host": "xsj004-10.facai2024.com"
           }
         }
       },
