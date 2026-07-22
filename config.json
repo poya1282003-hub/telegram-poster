@@ -23,17 +23,16 @@
   ],
   "outbounds": [
     {
-      "protocol": "vless",
+      "protocol": "vmess",
       "settings": {
         "vnext": [
           {
-            "address": "fv2026.node2.top",
-            "port": 21001,
+            "address": "47.250.45.234",
+            "port": 8613,
             "users": [
               {
-                "id": "c2c05d0e-07a5-4522-9c66-b29495b1d20d",
-                "encryption": "none",
-                "flow": "xtls-rprx-vision",
+                "id": "80039b4d-bac0-4f89-82c7-54fad3b0a1ea",
+                "security": "auto",
                 "level": 0
               }
             ]
@@ -41,11 +40,13 @@
         ]
       },
       "streamSettings": {
-        "network": "tcp#🇭🇰_HK_中国香港",
-        "security": "tls",
-        "tlsSettings": {
-          "allowInsecure": true,
-          "serverName": "itunes.apple.com"
+        "network": "ws",
+        "security": "",
+        "wsSettings": {
+          "path": "/arki?ed=2048",
+          "headers": {
+            "Host": ""
+          }
         }
       },
       "tag": "proxy"
