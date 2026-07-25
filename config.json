@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "45.76.202.45",
-            "port": 4010,
+            "address": "94.131.108.36",
+            "port": 443,
             "users": [
               {
-                "id": "071a8a71-c656-4fb6-a908-4e42eb72243d",
+                "id": "9855f1f0-a800-40d4-8b38-c7d3eb79302d",
                 "security": "auto",
                 "level": 0
               }
@@ -43,7 +43,7 @@
         "network": "ws",
         "security": "",
         "wsSettings": {
-          "path": "/liksuzcp",
+          "path": "/",
           "headers": {
             "Host": ""
           }
