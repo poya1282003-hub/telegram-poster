@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "154.17.238.183",
-            "port": 8880,
+            "address": "45.76.202.45",
+            "port": 4010,
             "users": [
               {
-                "id": "b7479b73-8cea-4a82-97e8-bacf9bd86605",
+                "id": "071a8a71-c656-4fb6-a908-4e42eb72243d",
                 "security": "auto",
                 "level": 0
               }
@@ -43,9 +43,9 @@
         "network": "ws",
         "security": "",
         "wsSettings": {
-          "path": "b7479b73-8cea-4a82-97e8-bacf9bd86605-vm",
+          "path": "/liksuzcp",
           "headers": {
-            "Host": "www.bing.com"
+            "Host": ""
           }
         }
       },
