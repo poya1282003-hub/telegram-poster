@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "158.51.121.63",
-            "port": 443,
+            "address": "cindy52.ceoiii.com",
+            "port": 36803,
             "users": [
               {
-                "id": "03fcc618-b93d-6796-6aed-8a38c975d581",
+                "id": "a6ab6513-6ec3-327f-a068-b89fe72954b8",
                 "security": "auto",
                 "level": 0
               }
@@ -41,11 +41,11 @@
       },
       "streamSettings": {
         "network": "ws",
-        "security": "tls",
+        "security": "",
         "wsSettings": {
-          "path": "linkvws",
+          "path": "/hls/cctv5phd.m3u8",
           "headers": {
-            "Host": "seribus.org"
+            "Host": "ajax.microsoft.com"
           }
         }
       },
