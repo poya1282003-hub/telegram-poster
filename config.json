@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "cindy52.ceoiii.com",
-            "port": 36803,
+            "address": "45.76.202.45",
+            "port": 4010,
             "users": [
               {
-                "id": "a6ab6513-6ec3-327f-a068-b89fe72954b8",
+                "id": "071a8a71-c656-4fb6-a908-4e42eb72243d",
                 "security": "auto",
                 "level": 0
               }
@@ -43,9 +43,9 @@
         "network": "ws",
         "security": "",
         "wsSettings": {
-          "path": "/hls/cctv5phd.m3u8",
+          "path": "/liksuzcp",
           "headers": {
-            "Host": "ajax.microsoft.com"
+            "Host": ""
           }
         }
       },
