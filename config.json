@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "176.122.174.175",
-            "port": 8443,
+            "address": "107.175.91.118",
+            "port": 443,
             "users": [
               {
-                "id": "aa6bc79c-7535-4491-aede-655110ced2e3",
+                "id": "1bb1f95f-7425-4442-93f7-8fc1bd1a2001",
                 "security": "auto",
                 "level": 0
               }
@@ -41,9 +41,9 @@
       },
       "streamSettings": {
         "network": "ws",
-        "security": "",
+        "security": "tls",
         "wsSettings": {
-          "path": "/vmess",
+          "path": "/v2ray-wisp",
           "headers": {
             "Host": ""
           }
