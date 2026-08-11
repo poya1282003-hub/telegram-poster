@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "158.51.121.63",
-            "port": 443,
+            "address": "152.67.8.205",
+            "port": 80,
             "users": [
               {
-                "id": "03fcc618-b93d-6796-6aed-8a38c975d581",
+                "id": "9db4c708-aef8-4359-821b-38e47990be0d",
                 "security": "auto",
                 "level": 0
               }
@@ -41,11 +41,11 @@
       },
       "streamSettings": {
         "network": "ws",
-        "security": "tls",
+        "security": "",
         "wsSettings": {
-          "path": "linkvws",
+          "path": "/",
           "headers": {
-            "Host": "seribus.org"
+            "Host": ""
           }
         }
       },
