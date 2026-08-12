@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "cf.levikogjgfdd.ir",
-            "port": 2053,
+            "address": "rush-72frf.meeopp.site",
+            "port": 443,
             "users": [
               {
-                "id": "9a1a05d9-69be-45d3-e326-c6621edf7b31",
+                "id": "03fcc618-b93d-6796-6aed-8a38c975d581",
                 "security": "auto",
                 "level": 0
               }
@@ -43,9 +43,9 @@
         "network": "ws",
         "security": "tls",
         "wsSettings": {
-          "path": "/devm",
+          "path": "/video/o2nwt7/r0r2dmbb.m3u8",
           "headers": {
-            "Host": "deapp.jisuyun.top"
+            "Host": "rush-72frf.meeopp.site"
           }
         }
       },
