@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "152.67.8.205",
-            "port": 80,
+            "address": "cf.levikogjgfdd.ir",
+            "port": 2053,
             "users": [
               {
-                "id": "9db4c708-aef8-4359-821b-38e47990be0d",
+                "id": "9a1a05d9-69be-45d3-e326-c6621edf7b31",
                 "security": "auto",
                 "level": 0
               }
@@ -41,11 +41,11 @@
       },
       "streamSettings": {
         "network": "ws",
-        "security": "",
+        "security": "tls",
         "wsSettings": {
-          "path": "/",
+          "path": "/devm",
           "headers": {
-            "Host": ""
+            "Host": "deapp.jisuyun.top"
           }
         }
       },
