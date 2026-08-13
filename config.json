@@ -27,7 +27,7 @@
       "settings": {
         "vnext": [
           {
-            "address": "rush-w1niu.teeopp.online",
+            "address": "rush-72frf.meeopp.site",
             "port": 443,
             "users": [
               {
@@ -43,9 +43,9 @@
         "network": "ws",
         "security": "tls",
         "wsSettings": {
-          "path": "/video/v4sx3q/zxzrurkc.m3u8",
+          "path": "/",
           "headers": {
-            "Host": "rush-w1niu.teeopp.online"
+            "Host": "rush-72frf.meeopp.site"
           }
         }
       },
