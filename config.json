@@ -27,7 +27,7 @@
       "settings": {
         "vnext": [
           {
-            "address": "rush-72frf.meeopp.site",
+            "address": "158.51.121.63",
             "port": 443,
             "users": [
               {
@@ -43,9 +43,9 @@
         "network": "ws",
         "security": "tls",
         "wsSettings": {
-          "path": "/",
+          "path": "linkvws",
           "headers": {
-            "Host": "rush-72frf.meeopp.site"
+            "Host": "seribus.org"
           }
         }
       },
