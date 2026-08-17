@@ -23,16 +23,17 @@
   ],
   "outbounds": [
     {
-      "protocol": "vmess",
+      "protocol": "vless",
       "settings": {
         "vnext": [
           {
-            "address": "173.249.209.146",
-            "port": 20086,
+            "address": "61.145.123.58",
+            "port": 58011,
             "users": [
               {
-                "id": "3935c2dc-dbb0-43f7-b367-fe89abe87fdf",
-                "security": "auto",
+                "id": "0afc6426-606c-48e7-bd70-3c424a416842",
+                "encryption": "none#🇨🇳_CN_中国->🇺🇸_US_美国",
+                "flow": "",
                 "level": 0
               }
             ]
@@ -40,14 +41,9 @@
         ]
       },
       "streamSettings": {
-        "network": "ws",
-        "security": "",
-        "wsSettings": {
-          "path": "/",
-          "headers": {
-            "Host": ""
-          }
-        }
+        "network": "tcp",
+        "security": "none",
+        "tlsSettings": {}
       },
       "tag": "proxy"
     },
