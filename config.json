@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "173.249.209.146",
-            "port": 20086,
+            "address": "node.socks5.kdns.fr",
+            "port": 443,
             "users": [
               {
-                "id": "3935c2dc-dbb0-43f7-b367-fe89abe87fdf",
+                "id": "3d69d9bc-eaae-42bd-828f-6894c7d7edbf",
                 "security": "auto",
                 "level": 0
               }
@@ -41,11 +41,11 @@
       },
       "streamSettings": {
         "network": "ws",
-        "security": "",
+        "security": "tls",
         "wsSettings": {
-          "path": "/",
+          "path": "/3d69d9bc-eaae-42bd-828f-6894c7d7edbf-vm",
           "headers": {
-            "Host": ""
+            "Host": "resolution-secretary-presence-amazing.trycloudflare.com"
           }
         }
       },
