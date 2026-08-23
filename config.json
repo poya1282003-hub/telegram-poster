@@ -23,17 +23,16 @@
   ],
   "outbounds": [
     {
-      "protocol": "vless",
+      "protocol": "vmess",
       "settings": {
         "vnext": [
           {
-            "address": "31.76.5.26",
+            "address": "rush-6it6b.teeopp.quest",
             "port": 443,
             "users": [
               {
-                "id": "423b1d79-08c4-403f-9d5e-c541f791b55f",
-                "encryption": "none",
-                "flow": "xtls-rprx-vision",
+                "id": "03fcc618-b93d-6796-6aed-8a38c975d581",
+                "security": "auto",
                 "level": 0
               }
             ]
@@ -41,11 +40,13 @@
         ]
       },
       "streamSettings": {
-        "network": "tcp#🇳🇴_NO_挪威",
+        "network": "ws",
         "security": "tls",
-        "tlsSettings": {
-          "allowInsecure": true,
-          "serverName": "nordic.cendora.ru"
+        "wsSettings": {
+          "path": "/",
+          "headers": {
+            "Host": "rush-6it6b.teeopp.quest"
+          }
         }
       },
       "tag": "proxy"
