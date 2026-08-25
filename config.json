@@ -27,7 +27,7 @@
       "settings": {
         "vnext": [
           {
-            "address": "rush-6it6b.teeopp.quest",
+            "address": "rush-t2tvv.ceeopp.site",
             "port": 443,
             "users": [
               {
@@ -43,9 +43,9 @@
         "network": "ws",
         "security": "tls",
         "wsSettings": {
-          "path": "/video/kz49hf/gbin5jve.m3u8",
+          "path": "/",
           "headers": {
-            "Host": "rush-6it6b.teeopp.quest"
+            "Host": "rush-t2tvv.ceeopp.site"
           }
         }
       },
