@@ -27,7 +27,7 @@
       "settings": {
         "vnext": [
           {
-            "address": "rush-t2tvv.ceeopp.site",
+            "address": "rush-6it6b.teeopp.quest",
             "port": 443,
             "users": [
               {
@@ -45,7 +45,7 @@
         "wsSettings": {
           "path": "/",
           "headers": {
-            "Host": "rush-t2tvv.ceeopp.site"
+            "Host": "rush-6it6b.teeopp.quest"
           }
         }
       },
