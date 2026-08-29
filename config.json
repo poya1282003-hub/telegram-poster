@@ -43,7 +43,7 @@
         "network": "ws",
         "security": "tls",
         "wsSettings": {
-          "path": "/",
+          "path": "/video/kz49hf/gbin5jve.m3u8",
           "headers": {
             "Host": "rush-6it6b.teeopp.quest"
           }
