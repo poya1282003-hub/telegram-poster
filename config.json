@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "rush-6it6b.teeopp.quest",
-            "port": 443,
+            "address": "140.83.57.20",
+            "port": 13118,
             "users": [
               {
-                "id": "03fcc618-b93d-6796-6aed-8a38c975d581",
+                "id": "1f01e389-fbcb-494c-e46a-210ec36329c2",
                 "security": "auto",
                 "level": 0
               }
@@ -43,9 +43,9 @@
         "network": "ws",
         "security": "tls",
         "wsSettings": {
-          "path": "/video/kz49hf/gbin5jve.m3u8",
+          "path": "/",
           "headers": {
-            "Host": "rush-6it6b.teeopp.quest"
+            "Host": "sg.11160321.de5.net"
           }
         }
       },
