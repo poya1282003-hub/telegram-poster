@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "152.67.8.205",
-            "port": 80,
+            "address": "m.cnmjin.net",
+            "port": 16632,
             "users": [
               {
-                "id": "9db4c708-aef8-4359-821b-38e47990be0d",
+                "id": "d7e9f3c3-57c6-457e-b10f-df27907ef081",
                 "security": "auto",
                 "level": 0
               }
@@ -45,7 +45,7 @@
         "wsSettings": {
           "path": "/",
           "headers": {
-            "Host": ""
+            "Host": "18a598fcab3909734096beb9fe7bc5b4.mobgslb.tbcache.com"
           }
         }
       },
