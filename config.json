@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "23.236.69.39",
-            "port": 24187,
+            "address": "planb.mojcn.com.linuxlh.xin",
+            "port": 16632,
             "users": [
               {
-                "id": "12a8ee36-5936-4449-90bd-b5eac6db4c1d",
+                "id": "56a511bd-f207-48f4-be5b-4652afe178a4",
                 "security": "auto",
                 "level": 0
               }
@@ -45,7 +45,7 @@
         "wsSettings": {
           "path": "/",
           "headers": {
-            "Host": ""
+            "Host": "686a7558df571afb1408b0e77ae4f687.mobgslb.tbcache.com"
           }
         }
       },
