@@ -31,7 +31,7 @@
             "port": 16632,
             "users": [
               {
-                "id": "56a511bd-f207-48f4-be5b-4652afe178a4",
+                "id": "cefbe234-bcc6-4558-ab7b-1030e331e6a5",
                 "security": "auto",
                 "level": 0
               }
@@ -45,7 +45,7 @@
         "wsSettings": {
           "path": "/",
           "headers": {
-            "Host": "686a7558df571afb1408b0e77ae4f687.mobgslb.tbcache.com"
+            "Host": "d052c66d50dcf7c3cfab75ed7f8e8322.mobgslb.tbcache.com"
           }
         }
       },
