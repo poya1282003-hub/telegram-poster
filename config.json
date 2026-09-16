@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "38.107.234.57",
+            "address": "152.67.8.205",
             "port": 80,
             "users": [
               {
-                "id": "567f4be5-12ab-42e1-b8d9-db6fd1fdd31c",
+                "id": "9db4c708-aef8-4359-821b-38e47990be0d",
                 "security": "auto",
                 "level": 0
               }
@@ -43,9 +43,9 @@
         "network": "ws",
         "security": "",
         "wsSettings": {
-          "path": "/vmess/",
+          "path": "/",
           "headers": {
-            "Host": "3h-kazakhstan1.09vpn.com"
+            "Host": ""
           }
         }
       },
