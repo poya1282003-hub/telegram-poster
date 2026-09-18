@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "7dba81fc3a0b.oylfmxz.cn",
+            "address": "158.51.121.63",
             "port": 443,
             "users": [
               {
-                "id": "d90e4077-bc7e-414d-a650-70bf1baae4d6",
+                "id": "03fcc618-b93d-6796-6aed-8a38c975d581",
                 "security": "auto",
                 "level": 0
               }
@@ -43,9 +43,9 @@
         "network": "ws",
         "security": "tls",
         "wsSettings": {
-          "path": "/",
+          "path": "linkvws",
           "headers": {
-            "Host": "7dba81fc3a0b.oylfmxz.cn"
+            "Host": "seribus.org"
           }
         }
       },
