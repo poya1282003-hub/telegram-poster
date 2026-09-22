@@ -31,7 +31,7 @@
             "port": 80,
             "users": [
               {
-                "id": "479526cd-5011-43cf-a788-504da95e07c2",
+                "id": "aed88e79-5762-4d2f-86fa-f438f32a7654",
                 "security": "auto",
                 "level": 0
               }
@@ -45,7 +45,7 @@
         "wsSettings": {
           "path": "/",
           "headers": {
-            "Host": "google.whatsapp.snapp.torob.basalam.fortresshost.ir."
+            "Host": "google.whatsapp.snapp.torob.basalam.hesanid8.ir."
           }
         }
       },
