@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "188.114.96.19",
-            "port": 80,
+            "address": "pahobac.org",
+            "port": 443,
             "users": [
               {
-                "id": "aed88e79-5762-4d2f-86fa-f438f32a7654",
+                "id": "03fcc618-b93d-6796-6aed-8a38c975d581",
                 "security": "auto",
                 "level": 0
               }
@@ -41,11 +41,11 @@
       },
       "streamSettings": {
         "network": "ws",
-        "security": "",
+        "security": "tls",
         "wsSettings": {
-          "path": "/",
+          "path": "/linkvws",
           "headers": {
-            "Host": "google.whatsapp.snapp.torob.basalam.hesanid8.ir."
+            "Host": "pahobac.org"
           }
         }
       },
