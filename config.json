@@ -27,7 +27,7 @@
       "settings": {
         "vnext": [
           {
-            "address": "pahobac.org",
+            "address": "134.195.198.147",
             "port": 443,
             "users": [
               {
@@ -45,7 +45,7 @@
         "wsSettings": {
           "path": "/linkvws",
           "headers": {
-            "Host": "pahobac.org"
+            "Host": "vk.com"
           }
         }
       },
