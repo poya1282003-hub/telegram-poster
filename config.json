@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "129.146.77.248",
-            "port": 39495,
+            "address": "64.176.51.214",
+            "port": 23462,
             "users": [
               {
-                "id": "f836c736-87fc-4fde-aabc-00857ecdff3e",
+                "id": "95c5abc1-018d-4628-89a7-25ab9c62ab74",
                 "security": "auto",
                 "level": 0
               }
@@ -43,9 +43,9 @@
         "network": "ws",
         "security": "",
         "wsSettings": {
-          "path": "/cctv13.m3u8",
+          "path": "/a15206",
           "headers": {
-            "Host": "129.146.77.248"
+            "Host": ""
           }
         }
       },
