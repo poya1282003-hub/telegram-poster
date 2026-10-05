@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "167.17.68.89",
+            "address": "yg1.ygkkk.dpdns.org",
             "port": 443,
             "users": [
               {
-                "id": "03fcc618-b93d-6796-6aed-8a38c975d581",
+                "id": "b2ba4a73-3123-479e-aa96-5973a9ecd0c0",
                 "security": "auto",
                 "level": 0
               }
@@ -43,9 +43,9 @@
         "network": "ws",
         "security": "tls",
         "wsSettings": {
-          "path": "/linkvws",
+          "path": "/b2ba4a73-3123-479e-aa96-5973a9ecd0c0-vm",
           "headers": {
-            "Host": "vspeedfast.org"
+            "Host": "jmp1.907737.xyz"
           }
         }
       },
