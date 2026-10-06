@@ -27,7 +27,7 @@
       "settings": {
         "vnext": [
           {
-            "address": "66.163.115.23",
+            "address": "66.163.118.73",
             "port": 443,
             "users": [
               {
@@ -45,7 +45,7 @@
         "wsSettings": {
           "path": "/linkvws",
           "headers": {
-            "Host": "aidrivercat.org"
+            "Host": "mygptagent.org"
           }
         }
       },
