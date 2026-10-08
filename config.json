@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "cu.877774.xyz",
-            "port": 443,
+            "address": "3h-kazakhstan1.09vpn.com",
+            "port": 80,
             "users": [
               {
-                "id": "f3244e28-157b-49e9-9730-89832f89ebcc",
+                "id": "567f4be5-12ab-42e1-b8d9-db6fd1fdd31c",
                 "security": "auto",
                 "level": 0
               }
@@ -41,11 +41,11 @@
       },
       "streamSettings": {
         "network": "ws",
-        "security": "tls",
+        "security": "",
         "wsSettings": {
-          "path": "/vmess-argo",
+          "path": "/vmess/",
           "headers": {
-            "Host": "balanced-minds-carrier-demanding.trycloudflare.com"
+            "Host": "wrmelmwxlf.gktevlrqznwqqozy.fabpfs66gizmnojhcvqxwl.kytrcfzqla87gvgvs6c7kjnrubuh.cc"
           }
         }
       },
