@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "47.243.65.243",
+            "address": "cu.877774.xyz",
             "port": 443,
             "users": [
               {
-                "id": "f23bb427-c1f9-4373-876c-2f43e9f790f3",
+                "id": "f3244e28-157b-49e9-9730-89832f89ebcc",
                 "security": "auto",
                 "level": 0
               }
@@ -43,9 +43,9 @@
         "network": "ws",
         "security": "tls",
         "wsSettings": {
-          "path": "/ws-vmess",
+          "path": "/vmess-argo",
           "headers": {
-            "Host": "lcv8v9l7oyamxxfz.v.3dns.vip"
+            "Host": "balanced-minds-carrier-demanding.trycloudflare.com"
           }
         }
       },
