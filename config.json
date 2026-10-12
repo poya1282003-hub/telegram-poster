@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "654168416355441.d6f54hd1j.cc",
-            "port": 443,
+            "address": "57.129.132.223",
+            "port": 80,
             "users": [
               {
-                "id": "ecdc303d-bcbf-4129-bc02-dd67703f7081",
+                "id": "a25cbf11-2908-4a1b-a3a8-9a571777dca3",
                 "security": "auto",
                 "level": 0
               }
@@ -41,11 +41,11 @@
       },
       "streamSettings": {
         "network": "ws",
-        "security": "tls",
+        "security": "",
         "wsSettings": {
-          "path": "/",
+          "path": "/vmess/",
           "headers": {
-            "Host": "654168416355441.d6f54hd1j.cc"
+            "Host": "google.com"
           }
         }
       },
