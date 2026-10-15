@@ -27,8 +27,8 @@
       "settings": {
         "vnext": [
           {
-            "address": "104.17.147.222",
-            "port": 80,
+            "address": "172.66.203.67",
+            "port": 443,
             "users": [
               {
                 "id": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
@@ -41,9 +41,9 @@
       },
       "streamSettings": {
         "network": "ws",
-        "security": "",
+        "security": "tls",
         "wsSettings": {
-          "path": "/ws?ed=2048",
+          "path": "/ws",
           "headers": {
             "Host": "vmess.lbw666.dpdns.org"
           }
