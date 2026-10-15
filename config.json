@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "54.37.131.126",
+            "address": "104.17.147.222",
             "port": 80,
             "users": [
               {
-                "id": "6deef9ad-1357-443d-f95c-cb18952c20b3",
+                "id": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
                 "security": "auto",
                 "level": 0
               }
@@ -43,9 +43,9 @@
         "network": "ws",
         "security": "",
         "wsSettings": {
-          "path": "/",
+          "path": "/ws?ed=2048",
           "headers": {
-            "Host": "google.whatsapp.snapp.torob.basalam.hesanid8.ir."
+            "Host": "vmess.lbw666.dpdns.org"
           }
         }
       },
