@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "qtkdr8jxe3wefxjm.v.3dns.vip",
+            "address": "uk3-2.998998.best",
             "port": 443,
             "users": [
               {
-                "id": "f23bb427-c1f9-4373-876c-2f43e9f790f3",
+                "id": "5504eaa8-1395-402f-8e0e-75ecd762e627",
                 "security": "auto",
                 "level": 0
               }
@@ -43,9 +43,9 @@
         "network": "ws",
         "security": "tls",
         "wsSettings": {
-          "path": "/ws-vmess",
+          "path": "/serhrdftshg",
           "headers": {
-            "Host": "qTKDR8jXE3wEFxJM.v.3dns.vip"
+            "Host": "server22.9966338.xyz"
           }
         }
       },
