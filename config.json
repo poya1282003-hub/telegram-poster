@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "172.111.146.64",
-            "port": 80,
+            "address": "de-d21e56c13c.shamanapp.online",
+            "port": 33744,
             "users": [
               {
-                "id": "05b8c783-7f59-47f9-9923-06a465679f6a",
+                "id": "b3a11068-1a7e-4643-85de-7c82cce46943",
                 "security": "auto",
                 "level": 0
               }
@@ -43,9 +43,9 @@
         "network": "ws",
         "security": "",
         "wsSettings": {
-          "path": "/vmess/",
+          "path": "/ShamanVMESS2026",
           "headers": {
-            "Host": ""
+            "Host": "de-d21e56c13c.shamanapp.online"
           }
         }
       },
