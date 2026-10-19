@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "3h-kazakhstan1.09vpn.com",
-            "port": 80,
+            "address": "uk3-2.998998.best",
+            "port": 443,
             "users": [
               {
-                "id": "567f4be5-12ab-42e1-b8d9-db6fd1fdd31c",
+                "id": "5504eaa8-1395-402f-8e0e-75ecd762e627",
                 "security": "auto",
                 "level": 0
               }
@@ -41,11 +41,11 @@
       },
       "streamSettings": {
         "network": "ws",
-        "security": "",
+        "security": "tls",
         "wsSettings": {
-          "path": "/vmess/",
+          "path": "/serhrdftshg",
           "headers": {
-            "Host": "wrmelmwxlf.gktevlrqznwqqozy.fabpfs66gizmnojhcvqxwl.kytrcfzqla87gvgvs6c7kjnrubuh.cc"
+            "Host": "server22.9966338.xyz"
           }
         }
       },
