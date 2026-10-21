@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "de-d21e56c13c.shamanapp.online",
-            "port": 33744,
+            "address": "54.37.131.126",
+            "port": 80,
             "users": [
               {
-                "id": "b3a11068-1a7e-4643-85de-7c82cce46943",
+                "id": "6deef9ad-1357-443d-f95c-cb18952c20b3",
                 "security": "auto",
                 "level": 0
               }
@@ -43,9 +43,9 @@
         "network": "ws",
         "security": "",
         "wsSettings": {
-          "path": "/ShamanVMESS2026",
+          "path": "/",
           "headers": {
-            "Host": "de-d21e56c13c.shamanapp.online"
+            "Host": "google.whatsapp.snapp.torob.basalam.hesanid8.ir."
           }
         }
       },
