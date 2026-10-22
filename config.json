@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "54.37.131.126",
-            "port": 80,
+            "address": "9641684.sdf65h4.top",
+            "port": 443,
             "users": [
               {
-                "id": "6deef9ad-1357-443d-f95c-cb18952c20b3",
+                "id": "250c015d-bab0-4ed3-b638-b4eda48f5840",
                 "security": "auto",
                 "level": 0
               }
@@ -41,11 +41,11 @@
       },
       "streamSettings": {
         "network": "ws",
-        "security": "",
+        "security": "tls",
         "wsSettings": {
           "path": "/",
           "headers": {
-            "Host": "google.whatsapp.snapp.torob.basalam.hesanid8.ir."
+            "Host": "9641684.sdf65h4.top"
           }
         }
       },
