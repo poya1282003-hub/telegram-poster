@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "145.239.55.210",
+            "address": "57.129.132.223",
             "port": 80,
             "users": [
               {
-                "id": "067fcd63-b215-4abd-8529-ae929a9971a9",
+                "id": "a25cbf11-2908-4a1b-a3a8-9a571777dca3",
                 "security": "auto",
                 "level": 0
               }
@@ -43,9 +43,9 @@
         "network": "ws",
         "security": "",
         "wsSettings": {
-          "path": "/",
+          "path": "/vmess/",
           "headers": {
-            "Host": "google.whatsapp.snapp.torob.basalam.fortresshost.ir."
+            "Host": "google.com"
           }
         }
       },
