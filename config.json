@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "57.129.132.223",
+            "address": "us-23.hihu.net",
             "port": 80,
             "users": [
               {
-                "id": "a25cbf11-2908-4a1b-a3a8-9a571777dca3",
+                "id": "8a9aaa70-ced9-11f1-b934-205c6d5f5d78",
                 "security": "auto",
                 "level": 0
               }
@@ -43,9 +43,9 @@
         "network": "ws",
         "security": "",
         "wsSettings": {
-          "path": "/vmess/",
+          "path": "/870ao26f",
           "headers": {
-            "Host": "google.com"
+            "Host": "172.66.0.251"
           }
         }
       },
