@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "www.gptcloudai.com",
+            "address": "wjofHsQtEuEywxEq.v.3dns.vip",
             "port": 443,
             "users": [
               {
-                "id": "e70a5b70-f63c-4450-af8b-94990cdf80c0",
+                "id": "a9f4de8b-68f1-44b6-b6a2-1db60940503a",
                 "security": "auto",
                 "level": 0
               }
@@ -43,9 +43,9 @@
         "network": "ws",
         "security": "tls",
         "wsSettings": {
-          "path": "/truth",
+          "path": "/ws-vmess",
           "headers": {
-            "Host": "www.gptcloudai.com"
+            "Host": "wjofHsQtEuEywxEq.v.3dns.vip"
           }
         }
       },
