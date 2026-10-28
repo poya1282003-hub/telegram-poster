@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "us-23.hihu.net",
+            "address": "104.17.147.222",
             "port": 80,
             "users": [
               {
-                "id": "8a9aaa70-ced9-11f1-b934-205c6d5f5d78",
+                "id": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
                 "security": "auto",
                 "level": 0
               }
@@ -43,9 +43,9 @@
         "network": "ws",
         "security": "",
         "wsSettings": {
-          "path": "/",
+          "path": "/ws?ed=2048",
           "headers": {
-            "Host": "172.66.0.251"
+            "Host": "vmess.lbw666.dpdns.org"
           }
         }
       },
