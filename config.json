@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "104.17.147.222",
-            "port": 80,
+            "address": "www.windowsmsidownloads.com",
+            "port": 443,
             "users": [
               {
-                "id": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
+                "id": "80be2deb-3b27-4775-9bd1-7f2a2b9c261b",
                 "security": "auto",
                 "level": 0
               }
@@ -41,11 +41,11 @@
       },
       "streamSettings": {
         "network": "ws",
-        "security": "",
+        "security": "tls",
         "wsSettings": {
-          "path": "/ws?ed=2048",
+          "path": "/truth",
           "headers": {
-            "Host": "vmess.lbw666.dpdns.org"
+            "Host": "www.windowsmsidownloads.com"
           }
         }
       },
