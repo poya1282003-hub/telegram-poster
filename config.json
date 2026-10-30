@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "www.windowsmsidownloads.com",
+            "address": "www.ubuntuupdates.com",
             "port": 443,
             "users": [
               {
-                "id": "80be2deb-3b27-4775-9bd1-7f2a2b9c261b",
+                "id": "83b09a64-1eaf-4c4d-89ed-866d4b6b8115",
                 "security": "auto",
                 "level": 0
               }
@@ -45,7 +45,7 @@
         "wsSettings": {
           "path": "/truth",
           "headers": {
-            "Host": "www.windowsmsidownloads.com"
+            "Host": "www.ubuntuupdates.com"
           }
         }
       },
