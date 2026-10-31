@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "www.ubuntuupdates.com",
-            "port": 443,
+            "address": "132.145.80.230",
+            "port": 80,
             "users": [
               {
-                "id": "83b09a64-1eaf-4c4d-89ed-866d4b6b8115",
+                "id": "5155860e-d07d-46c3-9128-3afbd84626c7",
                 "security": "auto",
                 "level": 0
               }
@@ -41,11 +41,11 @@
       },
       "streamSettings": {
         "network": "ws",
-        "security": "tls",
+        "security": "",
         "wsSettings": {
-          "path": "/truth",
+          "path": "/cctv13.m3u8",
           "headers": {
-            "Host": "www.ubuntuupdates.com"
+            "Host": "kr02.a0a.xyz"
           }
         }
       },
