@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "www.gptcloudai.com",
+            "address": "www.ubuntuupdates.com",
             "port": 443,
             "users": [
               {
-                "id": "e70a5b70-f63c-4450-af8b-94990cdf80c0",
+                "id": "83b09a64-1eaf-4c4d-89ed-866d4b6b8115",
                 "security": "auto",
                 "level": 0
               }
@@ -45,7 +45,7 @@
         "wsSettings": {
           "path": "/truth",
           "headers": {
-            "Host": "www.gptcloudai.com"
+            "Host": "www.ubuntuupdates.com"
           }
         }
       },
