@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "172.67.156.121",
+            "address": "www.windowssearchtools.com",
             "port": 443,
             "users": [
               {
-                "id": "e70a5b70-f63c-4450-af8b-94990cdf80c0",
+                "id": "ba1116e2-8c2f-4e3d-8e50-c954360cf970",
                 "security": "auto",
                 "level": 0
               }
@@ -45,7 +45,7 @@
         "wsSettings": {
           "path": "/truth",
           "headers": {
-            "Host": "www.gptcloudai.com"
+            "Host": "www.windowssearchtools.com"
           }
         }
       },
