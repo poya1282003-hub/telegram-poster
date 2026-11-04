@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "www.windowssearchtools.com",
+            "address": "47.243.153.153",
             "port": 443,
             "users": [
               {
-                "id": "ba1116e2-8c2f-4e3d-8e50-c954360cf970",
+                "id": "f23bb427-c1f9-4373-876c-2f43e9f790f3",
                 "security": "auto",
                 "level": 0
               }
@@ -43,9 +43,9 @@
         "network": "ws",
         "security": "tls",
         "wsSettings": {
-          "path": "/truth",
+          "path": "/ws-vmess",
           "headers": {
-            "Host": "www.windowssearchtools.com"
+            "Host": "i2psm3knof5qjjix.v.3dns.vip"
           }
         }
       },
