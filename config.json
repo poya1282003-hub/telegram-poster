@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "47.244.120.197",
-            "port": 36703,
+            "address": "172.86.108.79",
+            "port": 42906,
             "users": [
               {
-                "id": "45b83519-9c4f-4052-a11b-02e017b636d4",
+                "id": "9bcfd3b5-5f71-4938-b1d2-f8fdd895095d",
                 "security": "auto",
                 "level": 0
               }
@@ -43,9 +43,9 @@
         "network": "ws",
         "security": "",
         "wsSettings": {
-          "path": "/arki?ed=2048",
+          "path": "/9bcfd3b5-5f71-4938-b1d2-f8fdd895095d-vm",
           "headers": {
-            "Host": ""
+            "Host": "www.bing.com"
           }
         }
       },
