@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "172.86.108.79",
-            "port": 42906,
+            "address": "cf.090227.xyz",
+            "port": 443,
             "users": [
               {
-                "id": "9bcfd3b5-5f71-4938-b1d2-f8fdd895095d",
+                "id": "0cf6d970-3f1d-4aae-a989-92a8f76ae3db",
                 "security": "auto",
                 "level": 0
               }
@@ -41,11 +41,11 @@
       },
       "streamSettings": {
         "network": "ws",
-        "security": "",
+        "security": "tls",
         "wsSettings": {
-          "path": "/9bcfd3b5-5f71-4938-b1d2-f8fdd895095d-vm",
+          "path": "/ws?ed=2048",
           "headers": {
-            "Host": "www.bing.com"
+            "Host": "vmess.lbw666.dpdns.org"
           }
         }
       },
