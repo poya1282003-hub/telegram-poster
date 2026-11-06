@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "wwww.speedtest.org",
-            "port": 443,
+            "address": "54.37.131.126",
+            "port": 80,
             "users": [
               {
-                "id": "80be2deb-3b27-4775-9bd1-7f2a2b9c261b",
+                "id": "059fda3e-5ca9-4fbd-dd89-01cc6d4bb5dd",
                 "security": "auto",
                 "level": 0
               }
@@ -41,11 +41,11 @@
       },
       "streamSettings": {
         "network": "ws",
-        "security": "tls",
+        "security": "",
         "wsSettings": {
-          "path": "/truth",
+          "path": "/",
           "headers": {
-            "Host": "www.windowsmsidownloads.com"
+            "Host": "google.whatsapp.snapp.torob.basalam.hesanid8.ir."
           }
         }
       },
