@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "54.37.131.126",
-            "port": 80,
+            "address": "172.86.108.79",
+            "port": 42906,
             "users": [
               {
-                "id": "059fda3e-5ca9-4fbd-dd89-01cc6d4bb5dd",
+                "id": "9bcfd3b5-5f71-4938-b1d2-f8fdd895095d",
                 "security": "auto",
                 "level": 0
               }
@@ -43,9 +43,9 @@
         "network": "ws",
         "security": "",
         "wsSettings": {
-          "path": "/",
+          "path": "/9bcfd3b5-5f71-4938-b1d2-f8fdd895095d-vm",
           "headers": {
-            "Host": "google.whatsapp.snapp.torob.basalam.hesanid8.ir."
+            "Host": "www.bing.com"
           }
         }
       },
