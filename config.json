@@ -27,7 +27,7 @@
       "settings": {
         "vnext": [
           {
-            "address": "172.64.229.21",
+            "address": "172.66.0.1",
             "port": 443,
             "users": [
               {
@@ -43,7 +43,7 @@
         "network": "ws",
         "security": "tls",
         "wsSettings": {
-          "path": "/ws?ed=2048",
+          "path": "/ws",
           "headers": {
             "Host": "vmess.lbw666.dpdns.org"
           }
