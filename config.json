@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "145.239.55.210",
-            "port": 80,
+            "address": "clash.ddm4.cn",
+            "port": 443,
             "users": [
               {
-                "id": "2bc80e77-9590-4ded-a48b-0eda493f611b",
+                "id": "d006ef4a-d235-4691-bf05-abbe0d14055c",
                 "security": "auto",
                 "level": 0
               }
@@ -41,11 +41,11 @@
       },
       "streamSettings": {
         "network": "ws",
-        "security": "",
+        "security": "tls",
         "wsSettings": {
-          "path": "/",
+          "path": "/vmess",
           "headers": {
-            "Host": "google.whatsapp.snapp.torob.basalam.fortresshost.ir."
+            "Host": "clash.ddm4.cn"
           }
         }
       },
