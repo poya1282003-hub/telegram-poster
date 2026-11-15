@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "US032013.ssgreen.org",
-            "port": 443,
+            "address": "168.138.43.75",
+            "port": 80,
             "users": [
               {
-                "id": "4b6411e3-914d-4d6c-b486-58b1b88f5c5f",
+                "id": "11c3627f-31e8-4695-dfbd-34076e2f1f5d",
                 "security": "auto",
                 "level": 0
               }
@@ -41,11 +41,11 @@
       },
       "streamSettings": {
         "network": "ws",
-        "security": "tls",
+        "security": "",
         "wsSettings": {
-          "path": "/wes",
+          "path": "/cctv13.m3u8",
           "headers": {
-            "Host": "US032013.ssgreen.org"
+            "Host": "jp01.a0a.xyz"
           }
         }
       },
