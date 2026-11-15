@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "clash.ddm4.cn",
+            "address": "US032013.ssgreen.org",
             "port": 443,
             "users": [
               {
-                "id": "d006ef4a-d235-4691-bf05-abbe0d14055c",
+                "id": "4b6411e3-914d-4d6c-b486-58b1b88f5c5f",
                 "security": "auto",
                 "level": 0
               }
@@ -43,9 +43,9 @@
         "network": "ws",
         "security": "tls",
         "wsSettings": {
-          "path": "/vmess",
+          "path": "/wes",
           "headers": {
-            "Host": "clash.ddm4.cn"
+            "Host": "US032013.ssgreen.org"
           }
         }
       },
