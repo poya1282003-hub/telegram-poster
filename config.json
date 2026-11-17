@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "US032012.westmgreen.com",
-            "port": 443,
+            "address": "132.145.80.230",
+            "port": 80,
             "users": [
               {
-                "id": "fbc990c5-c62e-4e31-a9a5-db3a4fe42741",
+                "id": "5155860e-d07d-46c3-9128-3afbd84626c7",
                 "security": "auto",
                 "level": 0
               }
@@ -41,11 +41,11 @@
       },
       "streamSettings": {
         "network": "ws",
-        "security": "tls",
+        "security": "",
         "wsSettings": {
-          "path": "/wes",
+          "path": "/cctv13.m3u8",
           "headers": {
-            "Host": "US032012.westmgreen.com"
+            "Host": "kr02.a0a.xyz"
           }
         }
       },
