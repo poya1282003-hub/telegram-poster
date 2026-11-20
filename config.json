@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "57.129.132.223",
+            "address": "132.145.80.230",
             "port": 80,
             "users": [
               {
-                "id": "a25cbf11-2908-4a1b-a3a8-9a571777dca3",
+                "id": "5155860e-d07d-46c3-9128-3afbd84626c7",
                 "security": "auto",
                 "level": 0
               }
@@ -43,9 +43,9 @@
         "network": "ws",
         "security": "",
         "wsSettings": {
-          "path": "/vmess/",
+          "path": "/cctv13.m3u8",
           "headers": {
-            "Host": "57.129.132.223"
+            "Host": "kr02.a0a.xyz"
           }
         }
       },
