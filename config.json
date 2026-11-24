@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "145.239.55.210",
+            "address": "132.145.80.230",
             "port": 80,
             "users": [
               {
-                "id": "2bc80e77-9590-4ded-a48b-0eda493f611b",
+                "id": "5155860e-d07d-46c3-9128-3afbd84626c7",
                 "security": "auto",
                 "level": 0
               }
@@ -43,9 +43,9 @@
         "network": "ws",
         "security": "",
         "wsSettings": {
-          "path": "/",
+          "path": "/cctv13.m3u8",
           "headers": {
-            "Host": "google.whatsapp.snapp.torob.basalam.fortresshost.ir."
+            "Host": "kr02.a0a.xyz"
           }
         }
       },
