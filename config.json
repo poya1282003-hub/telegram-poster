@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "dp8yk.xiaoyan.io",
-            "port": 16616,
+            "address": "145.239.55.210",
+            "port": 80,
             "users": [
               {
-                "id": "904f0569-8695-466f-97cf-0de2face1b46",
+                "id": "2bc80e77-9590-4ded-a48b-0eda493f611b",
                 "security": "auto",
                 "level": 0
               }
@@ -45,7 +45,7 @@
         "wsSettings": {
           "path": "/",
           "headers": {
-            "Host": "f9309cc88637c26f552a1a64fb311cae.mobgslb.tbcache.com"
+            "Host": "google.whatsapp.snapp.torob.basalam.fortresshost.ir."
           }
         }
       },
