@@ -27,11 +27,11 @@
       "settings": {
         "vnext": [
           {
-            "address": "38.11.69.48",
-            "port": 30004,
+            "address": "132.145.80.230",
+            "port": 80,
             "users": [
               {
-                "id": "418048af-a293-4b99-9b0c-98ca3580dd24",
+                "id": "5155860e-d07d-46c3-9128-3afbd84626c7",
                 "security": "auto",
                 "level": 0
               }
@@ -41,11 +41,11 @@
       },
       "streamSettings": {
         "network": "ws",
-        "security": "tls",
+        "security": "",
         "wsSettings": {
-          "path": "/path/1698843555400",
+          "path": "/cctv13.m3u8",
           "headers": {
-            "Host": "www.83761815.xyz"
+            "Host": "kr02.a0a.xyz"
           }
         }
       },
